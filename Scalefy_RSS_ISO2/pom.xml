@@ -9,7 +9,19 @@
 
   <name>Scalefy_RSS_ISO2</name>
   <url>http://maven.apache.org</url>
-    <modules></modules>
+    <modules>
+        <module>Scalefy_Iteracion1</module>
+        <module>Scalefy_Iteracion2</module>
+        <module>Scalefy_Iteracion3</module>
+        <module>Scalefy_Iteracion4</module>
+        <module>Scalefy_Iteracion5</module>
+        <module>Scalefy_Iteracion6</module>
+        <module>Scalefy_Iteracion7</module>
+        <module>Scalefy_Iteracion8</module>
+        <module>Scalefy_Iteracion9</module>
+        <module>Scalefy_Iteracion10</module>
+        <module>Scalefy_Iteracion11</module>
+    </modules>
     <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
