@@ -21,6 +21,7 @@
         <module>Scalefy_Iteracion9</module>
         <module>Scalefy_Iteracion10</module>
         <module>Scalefy_Iteracion11</module>
+        <module>Scalefy_Iteracion12</module>
     </modules>
     <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
