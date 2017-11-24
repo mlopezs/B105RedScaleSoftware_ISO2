@@ -1,4 +1,4 @@
-package Presentacion;
+package presentacion;
 
 public class InterfazAdmin {
 }

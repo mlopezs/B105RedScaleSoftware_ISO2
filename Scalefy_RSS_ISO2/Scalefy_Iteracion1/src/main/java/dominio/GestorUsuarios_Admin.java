@@ -1,6 +1,6 @@
-package Dominio;
+package dominio;
 
-import Persistencia.*;
+import persistencia.*;
 
 public class GestorUsuarios_Admin {
 
