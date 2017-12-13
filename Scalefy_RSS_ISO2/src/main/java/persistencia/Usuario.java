@@ -3,22 +3,27 @@ package persistencia;
 import java.util.Queue;
 
 /**
-* @version 1.3
-*/
+ * @version 1.3
+ */
 public class Usuario {
 
-	private String nombre;
-	private String apellidos;
-	private String nombreUsuario;
-	private String contraseña;
-	private int[] cancionesAdquiridas;
-	private int[] listasReproduccion;
-	private double saldo;
-	private Queue<String> mensajes;
+    private int idUsuario;
+    private String nombre;
+    private String apellidos;
+    private String nombreUsuario;
+    private String contraseña;
+    private int[] cancionesAdquiridas;
+    private int[] listasReproduccion;
+    private double saldo;
+    private Queue<String> mensajes;
 
-	public double getSaldo() {
-		return this.saldo;
-	}
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public double getSaldo() {
+        return this.saldo;
+    }
 
     public String getNombre() {
         return nombre;
@@ -75,21 +80,39 @@ public class Usuario {
     public void setMensajes(Queue<String> mensajes) {
         this.mensajes = mensajes;
     }
-        
 
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
-	}
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
 
-	/**
-	 * Retorna el saldo final.
-	 * @param numTarjeta
-	 * @param cvvTarjeta
-	 * @param saldoDeseado
-	 */
-	public double añadirSaldo(String numTarjeta, int cvvTarjeta, double saldoDeseado) {
-		// TODO - implement Usuario.añadirSaldo
-		throw new UnsupportedOperationException();
-	}
+    /**
+     *
+     * @param numTarjeta
+     * @param cvvTarjeta
+     * @param saldoDeseado
+     * @return
+     */
+    public double añadirSaldo(String numTarjeta, int cvvTarjeta, double saldoDeseado) {
+        boolean din = comprobarDatosBancarios(numTarjeta, cvvTarjeta, saldoDeseado);
+        if (din) {
+            this.saldo += saldoDeseado;
+            return this.saldo;
+        }
+        return -1;
+    }
+
+    /**
+     * Se comprueban los datos y se devuelve true si el saldo se cobra.
+     *
+     * @param numTarjeta
+     * @param cvvTarjeta
+     * @param saldoDeseado
+     * @return
+     */
+    private boolean comprobarDatosBancarios(String numTarjeta, int cvvTarjeta, double saldoDeseado) {
+        System.out.printf("Comprobando datos\nTarjeta -> %s\nCVV -> %d\n"
+                + "SaldoDeseado -> %.2f euros.", numTarjeta, cvvTarjeta, saldoDeseado);
+        return true;
+    }
 
 }
