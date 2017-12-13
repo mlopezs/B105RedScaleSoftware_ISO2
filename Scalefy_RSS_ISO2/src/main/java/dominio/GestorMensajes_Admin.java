@@ -24,9 +24,12 @@ public class GestorMensajes_Admin {
             Usuario u = it.next();
             if(u.getIdUsuario() == idUsuario){
                 u.getMensajes().add(mensaje);
+                System.out.println("Mensaje enviado con éxito a *" + u.getNombre() + 
+                        "*:\n\"" + mensaje + "\".");
                 return true;
             }
         }
+        System.out.println("El mensaje no pudo ser enviado.");
         return false;
     }
 
