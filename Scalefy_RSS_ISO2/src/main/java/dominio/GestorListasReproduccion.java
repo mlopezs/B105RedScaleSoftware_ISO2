@@ -3,7 +3,6 @@ package dominio;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
-import persistencia.Cancion;
 import persistencia.ListaReproduccion;
 
 /**
@@ -12,37 +11,14 @@ import persistencia.ListaReproduccion;
 public class GestorListasReproduccion {
     
     // Simulacion BBDD
-    private final LinkedList<ListaReproduccion> bbdd_Listas;
-    
-    // Simulacion datos de entrada
-    private ListaReproduccion lr;
-    private final int idLista;
-    private final int idUsuario;
-    private final String nombreLista;
-    private final int[] canciones;
-
-    /**
-     * Constructor para testing.
-     * @param idLista
-     * @param idUsuario
-     * @param nombreLista
-     * @param canciones 
-     */
-    public GestorListasReproduccion(int idLista, int idUsuario, String nombreLista, 
-            int[] canciones) {
-        this.bbdd_Listas = new LinkedList();
-        this.idLista = idLista;
-        this.idUsuario = idUsuario;
-        this.nombreLista = nombreLista;
-        this.canciones = canciones;
-    }
+    private final LinkedList<ListaReproduccion> bbdd_Listas = new LinkedList();
 
     /**
      *
      * @return
      */
-    public int crearLR() {
-        lr = new ListaReproduccion(idLista, nombreLista, idUsuario, canciones);
+    public int crearLR(int idLista, int idUsuario, String nombreLista, int[] canciones) {
+        ListaReproduccion lr = new ListaReproduccion(idLista, nombreLista, idUsuario, canciones);
         bbdd_Listas.add(lr);
         System.out.println("Lista \"" + lr.getNombre() + "\" añadida con éxito.");
         return idLista;
