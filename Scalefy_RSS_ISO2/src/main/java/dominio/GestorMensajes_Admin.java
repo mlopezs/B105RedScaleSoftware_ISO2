@@ -1,10 +1,17 @@
 package dominio;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import persistencia.Usuario;
+
 /**
  * @version 1.0
  */
 public class GestorMensajes_Admin {
 
+    
+    LinkedList<Usuario> bbdd_Usuarios = new LinkedList();
+    
     /**
      * 
      * @param idUsuario
@@ -12,8 +19,15 @@ public class GestorMensajes_Admin {
      * @return 
      */
     public boolean enviarMensaje(int idUsuario, String mensaje) {
-        // TODO - implement GestorMensajes_Admin.enviarMensaje
-        throw new UnsupportedOperationException();
+        Iterator<Usuario> it = bbdd_Usuarios.iterator();
+        while(it.hasNext()){
+            Usuario u = it.next();
+            if(u.getIdUsuario() == idUsuario){
+                u.getMensajes().add(mensaje);
+                return true;
+            }
+        }
+        return false;
     }
 
 }
