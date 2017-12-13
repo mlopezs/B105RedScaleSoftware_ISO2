@@ -1,5 +1,7 @@
 package dominio;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import persistencia.*;
 
 /**
@@ -7,14 +9,32 @@ import persistencia.*;
  */
 public class GestorCanciones_Admin {
 
+    private LinkedList<Cancion> baseDeDatosCanciones;
+    Iterator<Cancion> buscaDuplicados;
+        
     /**
      * 
      * @param cancion
      * @return 
      */
-    public int añadirCancion(Cancion cancion) {
-        // TODO - implement GestorCanciones_Admin.añadirCancion
-        throw new UnsupportedOperationException();
+    
+    public boolean añadirCancion(Cancion cancion) {
+        buscaDuplicados = baseDeDatosCanciones.iterator();
+        boolean adicion = true;
+        
+        while(buscaDuplicados.hasNext()){
+            if(buscaDuplicados.next().getId() == cancion.getId()){
+                System.out.println("ERROR, Canción ya introducida");
+                adicion = false;
+                return adicion;
+            }
+        }
+        
+        if(adicion == true){
+            System.out.println("Canción agregada con exito");
+            adicion = true;
+        }
+        return adicion;
     }
 
     /**
@@ -22,9 +42,28 @@ public class GestorCanciones_Admin {
      * @param patron
      * @return 
      */
-    public Cancion buscarCancion(String patron) {
-        // TODO - implement GestorCanciones_Admin.buscarCancion
-        throw new UnsupportedOperationException();
+    public LinkedList<Cancion> buscarCancion(String patron) {
+        buscaDuplicados = baseDeDatosCanciones.iterator();
+        LinkedList<Cancion> coincidencias = new LinkedList();
+        Iterator<Cancion> cancionesEncontradas;
+        
+        while(buscaDuplicados.hasNext()){
+            Cancion cancion = buscaDuplicados.next();
+            if(cancion.getArtista().equals(patron)||cancion.getNombre().equals(patron)){
+                coincidencias.add(cancion);
+            }
+        }
+        
+        System.out.println("Coincidencias encontradas: \n");
+        cancionesEncontradas = coincidencias.iterator();
+        
+        while(cancionesEncontradas.hasNext()){
+            Cancion cancion = cancionesEncontradas.next();
+            
+            System.out.println(cancion.toString());
+        }
+        
+        return coincidencias;
     }
 
     /**
@@ -34,8 +73,19 @@ public class GestorCanciones_Admin {
      * @return 
      */
     public boolean modificarCancion(int idCancionVieja, Cancion cancionNueva) {
-        // TODO - implement GestorCanciones_Admin.modificarCancion
-        throw new UnsupportedOperationException();
+        boolean modificacion = true;
+        
+        try{
+            baseDeDatosCanciones.remove(idCancionVieja);
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("ERROR, la canción seleccionada no existe");
+            modificacion = false;
+        }
+        if(modificacion == true && idCancionVieja < baseDeDatosCanciones.size()){
+            baseDeDatosCanciones.add(idCancionVieja, cancionNueva);
+        }
+        
+        return modificacion;
     }
 
     /**
@@ -44,7 +94,19 @@ public class GestorCanciones_Admin {
      * @return 
      */
     public boolean eliminarCancion(int idCancion) {
-        // TODO - implement GestorCanciones_Admin.eliminarCancion
-        throw new UnsupportedOperationException();
+        boolean eliminacion = true;
+        
+        try{
+            baseDeDatosCanciones.remove(idCancion);
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("ERROR, id de canción inexistente en la base de datos");
+            eliminacion = false;
+        }
+        
+        if(eliminacion == true){
+            System.out.println("Eliminación exitosa");
+        }
+        
+        return eliminacion;
     }
 }
