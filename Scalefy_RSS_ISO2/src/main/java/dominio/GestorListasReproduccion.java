@@ -12,7 +12,6 @@ import persistencia.ListaReproduccion;
 public class GestorListasReproduccion {
     
     // Simulacion BBDD
-    private final LinkedList<Cancion> bbdd_Canciones;
     private final LinkedList<ListaReproduccion> bbdd_Listas;
     
     // Simulacion datos de entrada
@@ -32,7 +31,6 @@ public class GestorListasReproduccion {
     public GestorListasReproduccion(int idLista, int idUsuario, String nombreLista, 
             int[] canciones) {
         this.bbdd_Listas = new LinkedList();
-        this.bbdd_Canciones = new LinkedList();
         this.idLista = idLista;
         this.idUsuario = idUsuario;
         this.nombreLista = nombreLista;
@@ -46,6 +44,7 @@ public class GestorListasReproduccion {
     public int crearLR() {
         lr = new ListaReproduccion(idLista, nombreLista, idUsuario, canciones);
         bbdd_Listas.add(lr);
+        System.out.println("Lista \"" + lr.getNombre() + "\" añadida con éxito.");
         return idLista;
     }
 
@@ -60,9 +59,11 @@ public class GestorListasReproduccion {
             ListaReproduccion l = it.next();
             if(idListaReproduccion == l.getId()){
                 bbdd_Listas.remove(l);
+                System.out.println("Lista \"" + l.getNombre() + "\" eliminada con éxito.");
                 return true;
             }
         }
+        System.out.println("La lista de reproducción no ha podido ser eliminada");
         return false;
     }
 
@@ -76,13 +77,17 @@ public class GestorListasReproduccion {
         while(it.hasNext()){
             ListaReproduccion l = it.next();
             if(idListaReproduccion == l.getId()){
-                System.out.println("Cambiar \"" + nombreLista + "\" a:");
+                String old = l.getNombre();
+                System.out.println("Cambiar \"" + old + "\" a:");
                 Scanner sc = new Scanner(System.in);
-                String nuevoNombre = sc.next();
-                l.setNombre(nuevoNombre);
+                String nuevo = sc.next();
+                l.setNombre(nuevo);
+                System.out.println("El nombre de la lista \"" + old + "\" "
+                        + "se ha cambiado a \"" + nuevo + "\".");
                 return true;
             }
         }
+        System.out.println("El nombre de la lista se ha cambiado con éxito.");
         return false;
     }
 
@@ -99,10 +104,11 @@ public class GestorListasReproduccion {
             ListaReproduccion l = it2.next();
             if(idLR == l.getId()){
                 l.setCanciones(juntar(l.getCanciones(), idCancion));
+                System.out.println("La cancion se ha añadido con éxito a la lista de reproducción.");
                 return true;
             }
         }
-        
+        System.out.println("La canción no pudo ser añadida a la lista de reproducción.");
         return false;
     }
 
@@ -118,10 +124,12 @@ public class GestorListasReproduccion {
         while(it.hasNext()){
             ListaReproduccion l = it.next();
             if(idLR == l.getId()){
-                l.setCanciones(separar(l.getCanciones(),idCancion));                
+                l.setCanciones(separar(l.getCanciones(),idCancion)); 
+                System.out.println("La canción ha sido retirada de la lista.");
+                return true;
             }
         }
-        
+        System.out.println("La canción no pudo retirarse de la lista de reproducción");
         return false;
     }
 
