@@ -1,5 +1,6 @@
 package dominio;
 
+import java.util.LinkedList;
 import persistencia.*;
 
 /**
@@ -8,14 +9,25 @@ import persistencia.*;
  */
 public class GestorUsuarios {
 
-    /**
-     *
-     * @param usuario
-     * @return
-     */
+    
     public boolean anadirUsuario(Usuario usuario) {
-        // TODO - implement GestorUsuarios.a�adirUsuario
-        throw new UnsupportedOperationException();
+        
+        LinkedList<Usuario> usuarios= new LinkedList<Usuario>();
+        boolean añadir=true;
+        
+        for (int i=0; i<usuarios.size();i++){
+            if(usuario.getNombreUsuario().equals(usuarios.get(i).getNombreUsuario())){
+                añadir=false;
+            }
+        }
+        if(añadir==true){
+             usuarios.add(usuario);
+        }else{
+            return false;
+        }
+       
+        
+        return true;
     }
 
 }
