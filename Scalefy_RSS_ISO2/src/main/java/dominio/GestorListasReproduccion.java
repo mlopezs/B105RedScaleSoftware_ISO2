@@ -14,8 +14,12 @@ public class GestorListasReproduccion {
     private final LinkedList<ListaReproduccion> bbdd_Listas = new LinkedList();
 
     /**
-     *
-     * @return
+     * 
+     * @param idLista
+     * @param idUsuario
+     * @param nombreLista
+     * @param canciones
+     * @return 
      */
     public int crearLR(int idLista, int idUsuario, String nombreLista, int[] canciones) {
         ListaReproduccion lr = new ListaReproduccion(idLista, nombreLista, idUsuario, canciones);
