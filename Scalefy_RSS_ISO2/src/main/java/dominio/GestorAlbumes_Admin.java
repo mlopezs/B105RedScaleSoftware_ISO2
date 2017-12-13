@@ -1,5 +1,6 @@
 package dominio;
 
+import java.util.LinkedList;
 import persistencia.*;
 
 /**
@@ -8,24 +9,39 @@ import persistencia.*;
  */
 public class GestorAlbumes_Admin {
 
-    /**
-     * 
-     * @param album
-     * @return 
-     */
+   
     public int añadirAlbum(Album album) {
-        // TODO - implement GestorAlbumes_Admin.añadirAlbum
-        throw new UnsupportedOperationException();
+        LinkedList<Album> albumes = new LinkedList<Album>();
+        boolean añadirAlbum=true;
+        
+        for(int i=0; i<albumes.size(); i++){
+            if(album.getId() !=albumes.get(i).getId()){
+                añadirAlbum=false;
+            }
+        }
+        
+        if(añadirAlbum==true){
+            albumes.add(album);
+            return album.getId();
+        }else{
+            System.out.println("Error al añadir el album. Ya existe");
+            return 0;
+        }
+        
     }
 
-    /**
-     * 
-     * @param idAlbum
-     * @return 
-     */
+    
     public boolean eliminarAlbum(int idAlbum) {
-        // TODO - implement GestorAlbumes_Admin.eliminarAlbum
-        throw new UnsupportedOperationException();
+        LinkedList<Album> albumes = new LinkedList<Album>();
+        boolean eliminarAlbum=false;
+        for(int i=0; i<albumes.size();i++){
+            if(idAlbum==albumes.get(i).getId()){
+                albumes.remove(albumes.get(i));
+                eliminarAlbum=true;
+            }
+        }
+        return eliminarAlbum;
+        
     }
 
 }
