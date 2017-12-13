@@ -1,5 +1,6 @@
 package dominio;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import persistencia.*;
 
@@ -8,40 +9,40 @@ import persistencia.*;
  * @version 1.1
  */
 public class GestorAlbumes_Admin {
+    
+    LinkedList<Album> bbdd_Albumes = new LinkedList();
 
-   
-    public int añadirAlbum(Album album) {
-        LinkedList<Album> albumes = new LinkedList<Album>();
-        boolean añadirAlbum=true;
-        
-        for(int i=0; i<albumes.size(); i++){
-            if(album.getId() !=albumes.get(i).getId()){
-                añadirAlbum=false;
+   /**
+    * 
+    * @param album
+    * @return 
+    */
+    public boolean añadirAlbum(Album album) {        
+        Iterator<Album> it = bbdd_Albumes.iterator();
+        while(it.hasNext()){
+            if(it.next().getId() == album.getId()){
+                bbdd_Albumes.add(album);
+                return true;
             }
         }
-        
-        if(añadirAlbum==true){
-            albumes.add(album);
-            return album.getId();
-        }else{
-            System.out.println("Error al añadir el album. Ya existe");
-            return 0;
-        }
-        
+        return false;        
     }
 
-    
+    /**
+     * 
+     * @param idAlbum
+     * @return 
+     */
     public boolean eliminarAlbum(int idAlbum) {
-        LinkedList<Album> albumes = new LinkedList<Album>();
-        boolean eliminarAlbum=false;
-        for(int i=0; i<albumes.size();i++){
-            if(idAlbum==albumes.get(i).getId()){
-                albumes.remove(albumes.get(i));
-                eliminarAlbum=true;
+        Iterator<Album> it = bbdd_Albumes.iterator();
+        while(it.hasNext()){
+            Album a = it.next();
+            if(a.getId() == idAlbum){
+                bbdd_Albumes.remove(a);
+                return true;
             }
         }
-        return eliminarAlbum;
-        
+        return false;
     }
 
 }

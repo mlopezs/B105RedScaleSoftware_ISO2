@@ -9,104 +9,99 @@ import persistencia.*;
  */
 public class GestorCanciones_Admin {
 
-    private LinkedList<Cancion> baseDeDatosCanciones;
-    Iterator<Cancion> buscaDuplicados;
-        
+    private LinkedList<Cancion> bbdd_Canciones;
+    private Iterator<Cancion> buscaDuplicados;
+
     /**
-     * 
+     *
      * @param cancion
-     * @return 
+     * @return
      */
-    
     public boolean añadirCancion(Cancion cancion) {
-        buscaDuplicados = baseDeDatosCanciones.iterator();
-        boolean adicion = true;
-        
-        while(buscaDuplicados.hasNext()){
-            if(buscaDuplicados.next().getId() == cancion.getId()){
+        Iterator<Cancion> it = bbdd_Canciones.iterator();
+        while (it.hasNext()) {
+            if (it.next().getId() == cancion.getId()) {
                 System.out.println("ERROR, Canción ya introducida");
-                adicion = false;
-                return adicion;
+                return false;
             }
         }
-        
-        if(adicion == true){
-            System.out.println("Canción agregada con exito");
-            adicion = true;
-        }
-        return adicion;
+
+        bbdd_Canciones.add(cancion);
+        System.out.println("Canción agregada con exito");
+        return true;
     }
 
     /**
-     * 
+     *
      * @param patron
-     * @return 
+     * @return
      */
     public LinkedList<Cancion> buscarCancion(String patron) {
-        buscaDuplicados = baseDeDatosCanciones.iterator();
-        LinkedList<Cancion> coincidencias = new LinkedList();
-        Iterator<Cancion> cancionesEncontradas;
         
-        while(buscaDuplicados.hasNext()){
-            Cancion cancion = buscaDuplicados.next();
-            if(cancion.getArtista().equals(patron)||cancion.getNombre().equals(patron)){
+        Iterator<Cancion> it = bbdd_Canciones.iterator();
+
+        LinkedList<Cancion> coincidencias = new LinkedList();
+
+        while (it.hasNext()) {
+            Cancion cancion = it.next();
+            if (cancion.getArtista().contains(patron) || cancion.getNombre().contains(patron)) {
                 coincidencias.add(cancion);
             }
         }
-        
-        System.out.println("Coincidencias encontradas: \n");
-        cancionesEncontradas = coincidencias.iterator();
-        
-        while(cancionesEncontradas.hasNext()){
-            Cancion cancion = cancionesEncontradas.next();
-            
-            System.out.println(cancion.toString());
+
+        Iterator<Cancion> itc = coincidencias.iterator();
+
+        if (coincidencias.size() > 0) {
+            System.out.println("Coincidencias encontradas: \n");
+        }        
+        while (itc.hasNext()) {
+            System.out.println(itc.next().toString());
         }
-        
+
         return coincidencias;
     }
 
     /**
-     * 
+     *
      * @param idCancionVieja
      * @param cancionNueva
-     * @return 
+     * @return
      */
     public boolean modificarCancion(int idCancionVieja, Cancion cancionNueva) {
         boolean modificacion = true;
-        
-        try{
-            baseDeDatosCanciones.remove(idCancionVieja);
-        }catch(IndexOutOfBoundsException e){
+
+        try {
+            bbdd_Canciones.remove(idCancionVieja);
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("ERROR, la canción seleccionada no existe");
             modificacion = false;
         }
-        if(modificacion == true && idCancionVieja < baseDeDatosCanciones.size()){
-            baseDeDatosCanciones.add(idCancionVieja, cancionNueva);
+        if (modificacion == true && idCancionVieja < bbdd_Canciones.size()) {
+            bbdd_Canciones.add(idCancionVieja, cancionNueva);
         }
-        
+
         return modificacion;
     }
 
     /**
-     * 
+     *
      * @param idCancion
-     * @return 
+     * @return
      */
     public boolean eliminarCancion(int idCancion) {
         boolean eliminacion = true;
-        
-        try{
-            baseDeDatosCanciones.remove(idCancion);
-        }catch(IndexOutOfBoundsException e){
+
+        try {
+            bbdd_Canciones.remove(idCancion);
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("ERROR, id de canción inexistente en la base de datos");
             eliminacion = false;
         }
-        
-        if(eliminacion == true){
+
+        if (eliminacion == true) {
             System.out.println("Eliminación exitosa");
         }
-        
+
         return eliminacion;
     }
 }
