@@ -18,7 +18,7 @@ public class GestorLogin {
             System.out.println("Autenticacion correcta");
             return true;
         }else{
-            System.err.println("Usuario o contraseña mal introducido. Pruebe de nuevo");
+            System.out.println("Usuario o contraseña mal introducido. Pruebe de nuevo");
             
             return false;
         }
