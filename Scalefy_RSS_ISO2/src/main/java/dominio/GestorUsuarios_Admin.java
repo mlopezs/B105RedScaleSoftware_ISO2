@@ -1,5 +1,6 @@
 package dominio;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import persistencia.*;
 
@@ -8,40 +9,40 @@ import persistencia.*;
  */
 public class GestorUsuarios_Admin {
 
+    private LinkedList<Usuario> bbdd_Usuarios = new LinkedList();
+
     
     public boolean añadirUsuario(Usuario usuario) {
-         LinkedList<Usuario> usuarios= new LinkedList<Usuario>();
-        boolean añadir=true;
-        
-        for (int i=0; i<usuarios.size();i++){
-            if(usuario.getNombreUsuario().equals(usuarios.get(i).getNombreUsuario())){
-                añadir=false;
+         Iterator<Usuario> it = bbdd_Usuarios.iterator();
+        while (it.hasNext()) {
+            Usuario u = it.next();
+            if (usuario.getIdUsuario() == u.getIdUsuario()) {
+                System.out.println("ERROR: El id del usuario ya está registrado.");
+                return false;
+            }
+            if (usuario.getApellidos().equals(u.getApellidos())) {
+                System.out.println("ERROR: El apellido ya está registrado.");
+                return false;
             }
         }
-        if(añadir==true){
-             usuarios.add(usuario);
-             return true;
-        }else{
-            return false;
-        }
-       
-        
-  
+        bbdd_Usuarios.add(usuario);
+        System.out.println("Usuario añadido con éxito:\n" + usuario.toString());        
+        return true;
     }
 
     
     public boolean eliminarUsuario(int idUsuario) {
-        LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
-       
-        for(int i=0; i<usuarios.size();i++){
-            if(idUsuario==usuarios.get(i).getIdUsuario()){
-                usuarios.remove(usuarios.get(i));
+        Iterator<Usuario> it = bbdd_Usuarios.iterator();
+        while(it.hasNext()){
+            Usuario u = it.next();
+            if(u.getIdUsuario() == idUsuario){
+                bbdd_Usuarios.remove(u);
+                System.out.println("Usuario eliminado con éxito.");
                 return true;
             }
         }
-        
-        return false;
-        
+        System.out.println("El usuario no se pudo eliminar.");
+        return false;        
     }
 
 }

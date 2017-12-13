@@ -10,7 +10,6 @@ import persistencia.*;
 public class GestorCanciones_Admin {
 
     private LinkedList<Cancion> bbdd_Canciones;
-    private Iterator<Cancion> buscaDuplicados;
 
     /**
      *
@@ -21,13 +20,13 @@ public class GestorCanciones_Admin {
         Iterator<Cancion> it = bbdd_Canciones.iterator();
         while (it.hasNext()) {
             if (it.next().getId() == cancion.getId()) {
-                System.out.println("ERROR, Canción ya introducida");
+                System.out.println("ERROR. La cancion ya existe.");
                 return false;
             }
         }
 
         bbdd_Canciones.add(cancion);
-        System.out.println("Canción agregada con exito");
+        System.out.println("Canción agregada con exito.");
         return true;
     }
 
@@ -73,7 +72,7 @@ public class GestorCanciones_Admin {
         try {
             bbdd_Canciones.remove(idCancionVieja);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("ERROR, la canción seleccionada no existe");
+            System.out.println("ERROR. La canción no existe");
             modificacion = false;
         }
         if (modificacion == true && idCancionVieja < bbdd_Canciones.size()) {
@@ -94,12 +93,12 @@ public class GestorCanciones_Admin {
         try {
             bbdd_Canciones.remove(idCancion);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("ERROR, id de canción inexistente en la base de datos");
+            System.out.println("ERROR. La canción no existe en la base de datos");
             eliminacion = false;
         }
 
         if (eliminacion == true) {
-            System.out.println("Eliminación exitosa");
+            System.out.println("Eliminación exitosa.");
         }
 
         return eliminacion;
