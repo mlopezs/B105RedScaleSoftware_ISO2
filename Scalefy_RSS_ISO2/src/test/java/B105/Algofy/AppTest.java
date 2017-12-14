@@ -101,7 +101,7 @@ public class AppTest {
         lista2 = new ListaReproduccion(1, "Worst lista de reproduccion", 1, cancionesLista2);
     }
 
-    @Test
+ @Test
     public void testGestorAlbumesAdmin() {
         LinkedList<Album> listaAlbumesTest = new LinkedList();
         listaAlbumesTest.add(album2);
@@ -118,22 +118,30 @@ public class AppTest {
     public void testGestorCancionesAdmin() {
         LinkedList<Cancion> listaCanciones = new LinkedList();
         LinkedList<Cancion> listaCancionesRetornadas = new LinkedList();
+        LinkedList<Cancion> listaCancionesNulas = null;
+        
         listaCanciones.add(cancion1);
-
-        GestorCanciones_Admin gca = new GestorCanciones_Admin(listaCanciones);
+        GestorCanciones_Admin
+        
+        gca = new GestorCanciones_Admin(listaCanciones);
         assertTrue(gca.añadirCancion(cancion2));
         assertFalse(gca.añadirCancion(cancion1));
 
         listaCancionesRetornadas = gca.buscarCancion("espada");
-        
-        for(int i = 0; i < listaCancionesRetornadas.size(); i++){
-            assertEquals(listaCancionesRetornadas.get(i),listaCanciones.get(i));
+        for (int i = 0; i < listaCancionesRetornadas.size(); i++) {
+            assertEquals(listaCancionesRetornadas.get(i), listaCanciones.get(i));
         }
-                
+
+        listaCancionesRetornadas = gca.buscarCancion("");
+        for (int i = 0; i < listaCancionesRetornadas.size(); i++) {
+            assertEquals(listaCancionesRetornadas.get(i), listaCanciones.get(i));
+        }
+
         assertTrue(gca.modificarCancion(cancion1.getId(), cancion2));
-        assertFalse(gca.modificarCancion(12,cancion1));
+        assertFalse(gca.modificarCancion(12, cancion1));
         
-        
+        assertTrue(gca.eliminarCancion(cancion1.getId()));
+        assertFalse(gca.eliminarCancion(cancion2.getId()));
 
     }
 
