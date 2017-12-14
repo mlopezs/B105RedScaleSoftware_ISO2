@@ -9,7 +9,13 @@ import persistencia.*;
  */
 public class GestorCanciones_Admin {
 
-    private LinkedList<Cancion> bbdd_Canciones;
+    private final LinkedList<Cancion> bbdd_Canciones;
+
+    public GestorCanciones_Admin(LinkedList<Cancion> bbdd_Canciones) {
+        this.bbdd_Canciones = bbdd_Canciones;
+    }
+    
+    
 
     /**
      *

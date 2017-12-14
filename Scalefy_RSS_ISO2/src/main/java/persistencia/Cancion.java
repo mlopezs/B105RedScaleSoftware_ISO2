@@ -41,4 +41,39 @@ public class Cancion {
 		return this.duracion;
 	}
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cancion other = (Cancion) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.idAlbum != other.idAlbum) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.duracion) != Double.doubleToLongBits(other.duracion)) {
+            return false;
+        }
+        if ((this.nombre == null) ? (other.nombre != null) : !this.nombre.equals(other.nombre)) {
+            return false;
+        }
+        if ((this.artista == null) ? (other.artista != null) : !this.artista.equals(other.artista)) {
+            return false;
+        }
+        if ((this.genero == null) ? (other.genero != null) : !this.genero.equals(other.genero)) {
+            return false;
+        }
+        return true;
+    }
+        
+        
+
 }

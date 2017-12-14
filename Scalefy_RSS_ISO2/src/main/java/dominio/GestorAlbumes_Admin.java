@@ -10,10 +10,13 @@ import persistencia.*;
  */
 public class GestorAlbumes_Admin {
 
-    LinkedList<Album> bbdd_Albumes = new LinkedList();
+    LinkedList<Album> bbdd_Albumes;
 
-    public GestorAlbumes_Admin() {
+    public GestorAlbumes_Admin(LinkedList<Album> bbdd_Albumes) {
+        this.bbdd_Albumes = bbdd_Albumes;
     }
+
+ 
 
     /**
      *
