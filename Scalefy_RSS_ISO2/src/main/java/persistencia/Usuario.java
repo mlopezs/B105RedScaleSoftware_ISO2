@@ -17,6 +17,18 @@ public class Usuario {
     private double saldo;
     private Queue<String> mensajes;
 
+    public Usuario(int idUsuario, String nombre, String apellidos, String nombreUsuario, String contraseña, int[] cancionesAdquiridas, int[] listasReproduccion, double saldo, Queue<String> mensajes) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.nombreUsuario = nombreUsuario;
+        this.contraseña = contraseña;
+        this.cancionesAdquiridas = cancionesAdquiridas;
+        this.listasReproduccion = listasReproduccion;
+        this.saldo = saldo;
+        this.mensajes = mensajes;
+    }
+    
     public int getIdUsuario() {
         return idUsuario;
     }

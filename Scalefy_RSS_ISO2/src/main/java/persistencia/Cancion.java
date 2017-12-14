@@ -12,6 +12,15 @@ public class Cancion {
 	private String genero;
 	private double duracion;
 
+    public Cancion(int id, String nombre, String artista, int idAlbum, String genero, double duracion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.artista = artista;
+        this.idAlbum = idAlbum;
+        this.genero = genero;
+        this.duracion = duracion;
+    }
+
 	public int getId() {
 		return this.id;
 	}

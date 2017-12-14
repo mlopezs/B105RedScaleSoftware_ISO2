@@ -9,6 +9,12 @@ public class Album {
 	private String nombre;
 	private int[] canciones;
 
+    public Album(int id, String nombre, int[] canciones) {
+        this.id = id;
+        this.nombre = nombre;
+        this.canciones = canciones;
+    }
+        
 	public int getId() {
 		return this.id;
 	}

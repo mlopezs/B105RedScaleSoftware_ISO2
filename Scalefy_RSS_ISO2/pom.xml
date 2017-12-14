@@ -5,7 +5,7 @@
     <groupId>B105</groupId>
     <artifactId>Scalefy</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>Scalefy_RSS_ISO2</name>
     <url>http://maven.apache.org</url>
@@ -29,12 +29,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
+      <dependencies>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <version>4.12</version>
         </dependency>
     </dependencies>
     <build>
@@ -95,7 +95,6 @@
             </plugin>
         </plugins>
     </build>
-  
     <reporting>
         <plugins>
             <plugin>
@@ -120,11 +119,16 @@
                     </reportSet>
                 </reportSets>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
-                    <skipEmptyReport>false</skipEmptyReport>
+                    <rulesets>
+                        <!-- Two rule sets that come bundled with PMD -->
+                        <ruleset>/rulesets/java/braces.xml</ruleset>
+                        <ruleset>/rulesets/java/naming.xml</ruleset>
+                    </rulesets>
                 </configuration>
             </plugin>
             <plugin>
@@ -149,6 +153,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
             </plugin>
+            
         </plugins>
     </reporting>
 </project>
