@@ -2,6 +2,7 @@ package B105.Algofy;
 
 import dominio.GestorAlbumes_Admin;
 import dominio.GestorCanciones_Admin;
+import dominio.GestorListasReproduccion;
 import dominio.GestorReproduccion;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -139,6 +140,7 @@ public class AppTest {
 
     @Test
     public void testGestorReproduccion(){
+        
         LinkedList<Cancion> lc = new LinkedList();
         lc.add(cancion1);
         lc.add(cancion2);
@@ -150,6 +152,7 @@ public class AppTest {
         llr.add(lista2);
         
         GestorReproduccion gr = new GestorReproduccion(lc, la, llr);
+        
         assertTrue(gr.reproducirCancion(0));
         assertFalse(gr.reproducirCancion(4));
         assertTrue(gr.reproducirAlbum(0));
@@ -158,4 +161,42 @@ public class AppTest {
         assertFalse(gr.reproducirListaReproduccion(5));
     }
     
+    @Test
+    public void testGestorListasReproduccion(){
+        
+        LinkedList<Cancion> lc = new LinkedList();
+        lc.add(cancion1);
+        lc.add(cancion2);
+        lc.add(cancion3);
+        LinkedList<Usuario> lu = new LinkedList();
+        lu.add(usuario1);
+        lu.add(usuario2);
+        LinkedList<ListaReproduccion> llr = new LinkedList();
+        llr.add(lista1);
+        llr.add(lista2);
+        int[] cs = {0};
+        int[] csf = {1, -1};
+        
+        GestorListasReproduccion glr = new GestorListasReproduccion(llr, lu, lc);
+        
+        assertFalse(glr.crearLR(0, 4, "FallaUsuario", cs));
+        assertFalse(glr.crearLR(0, 0, "FallaCancion", csf));
+        assertFalse(glr.crearLR(0, 1, "", cs));
+        assertTrue(glr.crearLR(0, 0, "Acierto", cs));
+        
+        assertFalse(glr.borrarLR(-9));
+        assertTrue(glr.borrarLR(0));
+        
+        assertFalse(glr.modificarLR(5));
+        assertTrue(glr.modificarLR(0));
+        
+        assertFalse(glr.añadirCancion(10, 0));
+        assertFalse(glr.añadirCancion(1, 84));
+        assertTrue(glr.añadirCancion(0, 0));
+        
+        assertFalse(glr.eliminarCancion(10, 0));
+        assertFalse(glr.eliminarCancion(1, 84));
+        assertTrue(glr.eliminarCancion(0, 0));
+        
+    }
 }
