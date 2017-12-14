@@ -98,7 +98,7 @@ public class GestorListasReproduccion {
             if (idListaReproduccion == l.getId()) {
                 String old = l.getNombre();
                 System.out.println("Cambiar \"" + old + "\" a:");
-                Scanner sc = new Scanner(System.in);
+                //Scanner sc = new Scanner(System.in);
                 String nuevo = "<LeidoPorTeclado>";//sc.next();
                 l.setNombre(nuevo);
                 System.out.println("El nombre de la lista \"" + old + "\" "

@@ -118,8 +118,7 @@ public class AppTest {
     @Test
     public void testGestorCancionesAdmin() {
         LinkedList<Cancion> listaCanciones = new LinkedList();
-        LinkedList<Cancion> listaCancionesRetornadas = new LinkedList();
-        LinkedList<Cancion> listaCancionesNulas = null;
+        LinkedList<Cancion> listaCancionesRetornadas;
         
         listaCanciones.add(cancion1);
         GestorCanciones_Admin
