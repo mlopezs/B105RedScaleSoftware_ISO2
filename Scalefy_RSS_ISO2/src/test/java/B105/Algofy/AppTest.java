@@ -2,6 +2,7 @@ package B105.Algofy;
 
 import dominio.GestorAlbumes_Admin;
 import dominio.GestorCanciones_Admin;
+import dominio.GestorReproduccion;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -136,4 +137,25 @@ public class AppTest {
 
     }
 
+    @Test
+    public void testGestorReproduccion(){
+        LinkedList<Cancion> lc = new LinkedList();
+        lc.add(cancion1);
+        lc.add(cancion2);
+        LinkedList<Album> la = new LinkedList();
+        la.add(album1);
+        la.add(album2);
+        LinkedList<ListaReproduccion> llr = new LinkedList();
+        llr.add(lista1);
+        llr.add(lista2);
+        
+        GestorReproduccion gr = new GestorReproduccion(lc, la, llr);
+        assertTrue(gr.reproducirCancion(0));
+        assertFalse(gr.reproducirCancion(4));
+        assertTrue(gr.reproducirAlbum(0));
+        assertFalse(gr.reproducirAlbum(9));
+        assertTrue(gr.reproducirListaReproduccion(0));
+        assertFalse(gr.reproducirListaReproduccion(5));
+    }
+    
 }
