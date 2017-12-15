@@ -144,6 +144,14 @@ public class AppTest {
         for (int i = 0; i < listaCancionesRetornadas.size(); i++) {
             assertEquals(listaCancionesRetornadas.get(i), listaCanciones.get(i));
         }
+        
+        assertTrue(gca.modificarCancion(0, cancion2));
+        assertFalse(gca.modificarCancion(0, cancion1));
+        assertFalse(gca.modificarCancion(0, null));
+        
+        assertTrue(gca.eliminarCancion(1));
+        assertFalse(gca.eliminarCancion(2));
+        
     }
 
     @Test

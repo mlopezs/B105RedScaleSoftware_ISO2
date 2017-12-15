@@ -3,6 +3,7 @@ package dominio;
 import java.util.Iterator;
 import java.util.LinkedList;
 import persistencia.*;
+import java.lang.NullPointerException;
 
 /**
  * @version 1.3
@@ -85,19 +86,23 @@ public class GestorCanciones_Admin {
         while (cancionesBaseDeDatos.hasNext()) {
             auxiliarSustitucion = cancionesBaseDeDatos.next();
             try {
-                if (auxiliarSustitucion.getId() == idCancionVieja) {
-                    lugarCancion = bbdd_Canciones.indexOf(auxiliarSustitucion);
-                    bbdd_Canciones.remove(lugarCancion);
-                    bbdd_Canciones.add(lugarCancion, cancionNueva);
-                    modificacion = true;
-                    break;
-                } else {
-                    modificacion = false;
+                if (cancionNueva == null) {
+                    throw new NullPointerException();
                 }
             } catch (NullPointerException e) {
                 System.out.println("ERROR, cancion nula");
                 modificacion = false;
             }
+            if (auxiliarSustitucion.getId() == idCancionVieja) {
+                lugarCancion = bbdd_Canciones.indexOf(auxiliarSustitucion);
+                bbdd_Canciones.remove(lugarCancion);
+                bbdd_Canciones.add(lugarCancion, cancionNueva);
+                modificacion = true;
+                break;
+            } else {
+                modificacion = false;
+            }
+
         }
 
         return modificacion;
@@ -111,14 +116,16 @@ public class GestorCanciones_Admin {
     public boolean eliminarCancion(int idCancionEliminada) {
         boolean eliminacion = true;
 
-        Cancion auxiliarSustitucion = null;
+        Cancion auxiliarSustitucion;
 
-        Iterator<Cancion> cancionesBaseDeDatos = bbdd_Canciones.iterator();
+        Iterator<Cancion> cancionesBaseDeDatos;
+        cancionesBaseDeDatos = bbdd_Canciones.iterator();
+        
         int lugarCancion = 0;
 
         while (cancionesBaseDeDatos.hasNext()) {
             auxiliarSustitucion = cancionesBaseDeDatos.next();
-            try {
+            System.out.println(auxiliarSustitucion.getId()+" -> "+auxiliarSustitucion.getNombre());
                 if (auxiliarSustitucion.getId() == idCancionEliminada) {
                     lugarCancion = bbdd_Canciones.indexOf(auxiliarSustitucion);
                     bbdd_Canciones.remove(lugarCancion);
@@ -127,10 +134,7 @@ public class GestorCanciones_Admin {
                 } else {
                     eliminacion = false;
                 }
-            } catch (NullPointerException e) {
-                System.out.println("ERROR, cancion nula");
-                eliminacion = false;
-            }
+
         }
 
         if (eliminacion == true) {

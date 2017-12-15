@@ -19,7 +19,7 @@ public class GestorAlbumes_Admin {
     /**
      *
      * @param album
-     * @return
+     * @return 
      */
     public boolean añadirAlbum(Album album) {
         Iterator<Album> it = bbdd_Albumes.iterator();
