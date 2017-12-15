@@ -16,8 +16,6 @@ public class GestorAlbumes_Admin {
         this.bbdd_Albumes = bbdd_Albumes;
     }
 
- 
-
     /**
      *
      * @param album
@@ -26,7 +24,12 @@ public class GestorAlbumes_Admin {
     public boolean añadirAlbum(Album album) {
         Iterator<Album> it = bbdd_Albumes.iterator();
         while (it.hasNext()) {
-            if (it.next().getId() == album.getId()) {
+            try {
+                if (it.next().getId() == album.getId()) {
+                    return false;
+                }
+            } catch (NullPointerException e) {
+                System.out.println("ERROR, album nulo");
                 return false;
             }
         }

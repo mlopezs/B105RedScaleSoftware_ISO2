@@ -14,8 +14,6 @@ public class GestorCanciones_Admin {
     public GestorCanciones_Admin(LinkedList<Cancion> bbdd_Canciones) {
         this.bbdd_Canciones = bbdd_Canciones;
     }
-    
-    
 
     /**
      *
@@ -25,8 +23,13 @@ public class GestorCanciones_Admin {
     public boolean añadirCancion(Cancion cancion) {
         Iterator<Cancion> it = bbdd_Canciones.iterator();
         while (it.hasNext()) {
-            if (it.next().getId() == cancion.getId()) {
-                System.out.println("ERROR. La cancion ya existe.");
+            try {
+                if (it.next().getId() == cancion.getId()) {
+                    System.out.println("ERROR. La cancion ya existe.");
+                    return false;
+                }
+            } catch (NullPointerException e) {
+                System.out.println("ERROR, cancion nula");
                 return false;
             }
         }
@@ -42,7 +45,7 @@ public class GestorCanciones_Admin {
      * @return
      */
     public LinkedList<Cancion> buscarCancion(String patron) {
-        
+
         Iterator<Cancion> it = bbdd_Canciones.iterator();
 
         LinkedList<Cancion> coincidencias = new LinkedList();
@@ -58,7 +61,7 @@ public class GestorCanciones_Admin {
 
         if (coincidencias.size() > 0) {
             System.out.println("Coincidencias encontradas: \n");
-        }        
+        }
         while (itc.hasNext()) {
             System.out.println(itc.next().toString());
         }
@@ -74,15 +77,27 @@ public class GestorCanciones_Admin {
      */
     public boolean modificarCancion(int idCancionVieja, Cancion cancionNueva) {
         boolean modificacion = true;
+        Cancion auxiliarSustitucion = null;
 
-        try {
-            bbdd_Canciones.remove(idCancionVieja);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("ERROR. La canción no existe");
-            modificacion = false;
-        }
-        if (modificacion == true && idCancionVieja < bbdd_Canciones.size()) {
-            bbdd_Canciones.add(idCancionVieja, cancionNueva);
+        Iterator<Cancion> cancionesBaseDeDatos = bbdd_Canciones.iterator();
+        int lugarCancion = 0;
+
+        while (cancionesBaseDeDatos.hasNext()) {
+            auxiliarSustitucion = cancionesBaseDeDatos.next();
+            try {
+                if (auxiliarSustitucion.getId() == idCancionVieja) {
+                    lugarCancion = bbdd_Canciones.indexOf(auxiliarSustitucion);
+                    bbdd_Canciones.remove(lugarCancion);
+                    bbdd_Canciones.add(lugarCancion, cancionNueva);
+                    modificacion = true;
+                    break;
+                } else {
+                    modificacion = false;
+                }
+            } catch (NullPointerException e) {
+                System.out.println("ERROR, cancion nula");
+                modificacion = false;
+            }
         }
 
         return modificacion;
@@ -93,14 +108,29 @@ public class GestorCanciones_Admin {
      * @param idCancion
      * @return
      */
-    public boolean eliminarCancion(int idCancion) {
+    public boolean eliminarCancion(int idCancionEliminada) {
         boolean eliminacion = true;
 
-        try {
-            bbdd_Canciones.remove(idCancion);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("ERROR. La canción no existe en la base de datos");
-            eliminacion = false;
+        Cancion auxiliarSustitucion = null;
+
+        Iterator<Cancion> cancionesBaseDeDatos = bbdd_Canciones.iterator();
+        int lugarCancion = 0;
+
+        while (cancionesBaseDeDatos.hasNext()) {
+            auxiliarSustitucion = cancionesBaseDeDatos.next();
+            try {
+                if (auxiliarSustitucion.getId() == idCancionEliminada) {
+                    lugarCancion = bbdd_Canciones.indexOf(auxiliarSustitucion);
+                    bbdd_Canciones.remove(lugarCancion);
+                    eliminacion = true;
+                    break;
+                } else {
+                    eliminacion = false;
+                }
+            } catch (NullPointerException e) {
+                System.out.println("ERROR, cancion nula");
+                eliminacion = false;
+            }
         }
 
         if (eliminacion == true) {
