@@ -91,7 +91,7 @@ public class GestorListasReproduccion {
      * @param idListaReproduccion
      * @return
      */
-    public boolean modificarLR(int idListaReproduccion) {
+    public boolean modificarLR(int idListaReproduccion, String lecturaTeclado) {
         Iterator<ListaReproduccion> it = bbdd_ListasReproduccion.iterator();
         while (it.hasNext()) {
             ListaReproduccion l = it.next();
@@ -99,7 +99,11 @@ public class GestorListasReproduccion {
                 String old = l.getNombre();
                 System.out.println("Cambiar \"" + old + "\" a:");
                 //Scanner sc = new Scanner(System.in);
-                String nuevo = "<LeidoPorTeclado>";//sc.next();
+                //String nuevo = sc.next();
+                String nuevo = lecturaTeclado;
+                if(nuevo.equals("")){
+                    return false;
+                }
                 l.setNombre(nuevo);
                 System.out.println("El nombre de la lista \"" + old + "\" "
                         + "se ha cambiado a \"" + nuevo + "\".");

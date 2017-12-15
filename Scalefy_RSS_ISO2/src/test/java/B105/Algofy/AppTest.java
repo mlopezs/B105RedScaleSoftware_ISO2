@@ -181,7 +181,7 @@ public class AppTest {
         LinkedList<ListaReproduccion> llr = new LinkedList();
         llr.add(lista1);
         llr.add(lista2);
-        int[] cs = {0};
+        int[] cs = {0, 1, 2};
         int[] csf = {1, -1};
         
         GestorListasReproduccion glr = new GestorListasReproduccion(llr, lu, lc);
@@ -194,8 +194,9 @@ public class AppTest {
         assertFalse(glr.borrarLR(-9));
         assertTrue(glr.borrarLR(0));
         
-        assertFalse(glr.modificarLR(5));
-        assertTrue(glr.modificarLR(0));
+        assertFalse(glr.modificarLR(5, "NuevoNombre"));
+        assertFalse(glr.modificarLR(1, ""));
+        assertTrue(glr.modificarLR(0, "NuevoNombre"));
         
         assertFalse(glr.añadirCancion(10, 0));
         assertFalse(glr.añadirCancion(1, 84));
@@ -206,4 +207,6 @@ public class AppTest {
         assertTrue(glr.eliminarCancion(0, 0));
         
     }
+    
+    //@Test
 }
