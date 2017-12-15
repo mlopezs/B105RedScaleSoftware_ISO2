@@ -2,9 +2,12 @@ package B105.Algofy;
 
 import dominio.GestorAlbumes_Admin;
 import dominio.GestorCanciones_Admin;
+import dominio.GestorCompras;
 import dominio.GestorListasReproduccion;
+import dominio.GestorLogin;
 import dominio.GestorMensajes_Admin;
 import dominio.GestorReproduccion;
+import dominio.GestorUsuarios;
 import dominio.GestorUsuarios_Admin;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -88,7 +91,7 @@ public class AppTest {
 
         mensajes = new PriorityQueue<String>();
         usuario1 = new Usuario(0, "Moises", "Rodriguez Monje", "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
-        usuario2 = new Usuario(1, "Ricardo", "Perez del Castillo", "ricper23", "123", cancionesAdquiridas2, listasReproduccion1, 999, mensajes);
+        usuario2 = new Usuario(1, "Ricardo", "Perez del Castillo", "ricper23", "456", cancionesAdquiridas2, listasReproduccion1, 999, mensajes);
 
         cancionesLista1 = new int[3];
         cancionesLista1[0] = 0;
@@ -104,7 +107,7 @@ public class AppTest {
         lista2 = new ListaReproduccion(1, "Worst lista de reproduccion", 1, cancionesLista2);
     }
 
- @Test
+    @Test
     public void testGestorAlbumesAdmin() {
         LinkedList<Album> listaAlbumesTest = new LinkedList();
         listaAlbumesTest.add(album2);
@@ -121,11 +124,9 @@ public class AppTest {
     public void testGestorCancionesAdmin() {
         LinkedList<Cancion> listaCanciones = new LinkedList();
         LinkedList<Cancion> listaCancionesRetornadas;
-        
+
         listaCanciones.add(cancion1);
-        GestorCanciones_Admin
-        
-        gca = new GestorCanciones_Admin(listaCanciones);
+        GestorCanciones_Admin gca = new GestorCanciones_Admin(listaCanciones);
         assertTrue(gca.añadirCancion(cancion2));
         assertFalse(gca.añadirCancion(cancion1));
 
@@ -141,15 +142,15 @@ public class AppTest {
 
         assertTrue(gca.modificarCancion(cancion1.getId(), cancion2));
         assertFalse(gca.modificarCancion(12, cancion1));
-        
+
         assertTrue(gca.eliminarCancion(cancion1.getId()));
         assertFalse(gca.eliminarCancion(cancion2.getId()));
 
     }
 
     @Test
-    public void testGestorReproduccion(){
-        
+    public void testGestorReproduccion() {
+
         LinkedList<Cancion> lc = new LinkedList();
         lc.add(cancion1);
         lc.add(cancion2);
@@ -159,25 +160,25 @@ public class AppTest {
         LinkedList<ListaReproduccion> llr = new LinkedList();
         llr.add(lista1);
         llr.add(lista2);
-        
+
         GestorReproduccion gr = new GestorReproduccion(lc, la, llr);
-        
+
         assertTrue(gr.reproducirCancion(0));
         assertFalse(gr.reproducirCancion(4));
         assertFalse(gr.reproducirCancion(-3));
-        
+
         assertTrue(gr.reproducirAlbum(0));
         assertFalse(gr.reproducirAlbum(9));
         assertFalse(gr.reproducirAlbum(-3));
-        
+
         assertTrue(gr.reproducirListaReproduccion(0));
         assertFalse(gr.reproducirListaReproduccion(5));
         assertFalse(gr.reproducirListaReproduccion(-3));
     }
-    
+
     @Test
-    public void testGestorListasReproduccion(){
-        
+    public void testGestorListasReproduccion() {
+
         LinkedList<Cancion> lc = new LinkedList();
         lc.add(cancion1);
         lc.add(cancion2);
@@ -190,67 +191,128 @@ public class AppTest {
         llr.add(lista2);
         int[] cs = {0, 1, 2};
         int[] csf = {1, -1};
-        
+
         GestorListasReproduccion glr = new GestorListasReproduccion(llr, lu, lc);
-        
+
         assertFalse(glr.crearLR(0, 4, "FallaUsuario", cs));
         assertFalse(glr.crearLR(0, 0, "FallaCancion", csf));
         assertFalse(glr.crearLR(0, 1, "", cs));
         assertTrue(glr.crearLR(0, 0, "Acierto", cs));
-        
+
         assertFalse(glr.borrarLR(-9));
         assertTrue(glr.borrarLR(0));
-        
+
         assertFalse(glr.modificarLR(5, "NuevoNombre"));
         assertFalse(glr.modificarLR(1, ""));
         assertTrue(glr.modificarLR(0, "NuevoNombre"));
-        
+
         assertFalse(glr.añadirCancion(10, 0));
         assertFalse(glr.añadirCancion(1, 84));
         assertTrue(glr.añadirCancion(0, 0));
-        
+
         assertFalse(glr.eliminarCancion(10, 0));
         assertFalse(glr.eliminarCancion(1, 84));
         assertTrue(glr.eliminarCancion(0, 0));
-        
+
     }
-    
+
     @Test
-    public void testGestorMensajesAdmin(){
-     
+    public void testGestorMensajesAdmin() {
+
         LinkedList<Usuario> lu = new LinkedList();
         lu.add(usuario1);
         lu.add(usuario2);
-        
+
         GestorMensajes_Admin gma = new GestorMensajes_Admin(lu);
-        
+
         assertFalse(gma.enviarMensaje(0, null));
         assertFalse(gma.enviarMensaje(5, "Mensaje"));
         assertTrue(gma.enviarMensaje(1, "Mensaje"));
+
+    }
+
+    @Test
+    public void testGesstorUsuariosAdmin() {
+
+        LinkedList<Usuario> lu = new LinkedList();
+        lu.add(usuario1);
+        lu.add(usuario2);
+
+        Usuario ufid = new Usuario(0, "Moises", "Naidia", "moisror57", "123",
+                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        Usuario ufap = usuario1 = new Usuario(3, "Moises", "Rodriguez Monje",
+                "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        Usuario ua = new Usuario(5, "Acierto", "Jimenez", "acjim", "98h",
+                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+
+        GestorUsuarios_Admin gua = new GestorUsuarios_Admin(lu);
+
+        assertFalse(gua.añadirUsuario(ufid));
+        assertFalse(gua.añadirUsuario(ufap));
+        assertTrue(gua.añadirUsuario(ua));
+
+        assertFalse(gua.eliminarUsuario(-9));
+        assertTrue(gua.eliminarUsuario(1));
+    }
+
+    @Test
+    public void testGestorLogin() {
+
+        LinkedList<Usuario> lu = new LinkedList();
+        lu.add(usuario1);
+
+        GestorLogin gl = new GestorLogin(lu);
+
+        assertTrue(gl.autenticar(usuario1.getNombreUsuario(),
+                usuario1.getContraseña().toCharArray()));
+        assertFalse(gl.autenticar(usuario1.getNombreUsuario(),
+                usuario2.getContraseña().toCharArray()));
+        assertFalse(gl.autenticar("NoExisto", usuario1.getContraseña().toCharArray()));
+
+    }
+
+    @Test
+    public void testGestorUsuarios() {
+
+        LinkedList<Usuario> usu = new LinkedList();
+        usu.add(usuario1);
+
+        GestorUsuarios gu = new GestorUsuarios(usu);
+
+        Usuario ufap = new Usuario(3, "Moises", "Rodriguez Monje",
+                "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+
+        assertTrue(gu.anadirUsuario(usuario2));
+        assertFalse(gu.anadirUsuario(usuario1));
+        assertFalse(gu.anadirUsuario(ufap));
+        assertFalse(gu.anadirUsuario(null));
         
     }
     
     @Test
-    public void testGesstorUsuariosAdmin(){
-       
-        LinkedList<Usuario> lu = new LinkedList();
-        lu.add(usuario1);
-        lu.add(usuario2);
+    public void testGestorCompras(){
         
-        Usuario ufid = new Usuario(0, "Moises", "Naidia", "moisror57", "123", 
-                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
-        Usuario ufap =usuario1 = new Usuario(3, "Moises", "Rodriguez Monje", 
-                "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
-        Usuario ua = new Usuario(5, "Acierto", "Jimenez", "acjim", "98h", 
-                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        LinkedList<Cancion> bdCanciones = new LinkedList();
+        LinkedList<Album> bdAlbumes = new LinkedList();
+        LinkedList<Cancion> cancionesAdquiridas = new LinkedList();
+        LinkedList<Album> albumesAdquiridos = new LinkedList();
         
-        GestorUsuarios_Admin gua = new GestorUsuarios_Admin(lu);
+        cancionesAdquiridas.add(cancion1);
+        albumesAdquiridos.add(album1);
         
-        assertFalse(gua.añadirUsuario(ufid));
-        assertFalse(gua.añadirUsuario(ufap));
-        assertTrue(gua.añadirUsuario(ua));
+        bdCanciones.add(cancion2);
+        bdAlbumes.add(album2);
         
-        assertFalse(gua.eliminarUsuario(-9));
-        assertTrue(gua.eliminarUsuario(1));
+        GestorCompras gc = new GestorCompras(bdCanciones, bdAlbumes, cancionesAdquiridas, 
+                albumesAdquiridos);
+        
+        assertFalse(gc.adquirirCancion(0));
+        assertTrue(gc.adquirirCancion(1));
+        assertFalse(gc.adquirirCancion(-1));
+        
+        assertFalse(gc.adquirirAlbum(0));
+        assertTrue(gc.adquirirAlbum(1));
+        assertFalse(gc.adquirirAlbum(-1));
+        
     }
 }

@@ -10,9 +10,30 @@ import persistencia.*;
  */
 public class GestorUsuarios {
 
-    private LinkedList<Usuario> bbdd_Usuarios = new LinkedList();
+    private final LinkedList<Usuario> bbdd_Usuarios;
 
+    /**
+     * COnstructor.
+     * @param bbdd_Usuarios 
+     */
+    public GestorUsuarios(LinkedList<Usuario> bbdd_Usuarios) {
+        this.bbdd_Usuarios = bbdd_Usuarios;
+    }   
+    
+    /**
+     * 
+     * @param usuario
+     * @return 
+     */
     public boolean anadirUsuario(Usuario usuario) {
+        try{
+            if(usuario == null){
+                throw new NullPointerException();
+            }
+        }catch (NullPointerException ex){
+            return false;
+        }
+      
         Iterator<Usuario> it = bbdd_Usuarios.iterator();
         while (it.hasNext()) {
             Usuario u = it.next();

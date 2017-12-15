@@ -10,12 +10,30 @@ import persistencia.Cancion;
  */
 public class GestorCompras {
     
-    private LinkedList<Cancion> bbdd_Canciones = new LinkedList();
-    private LinkedList<Album> bbdd_Albumes = new LinkedList();
-    private LinkedList<Cancion> adqC = new LinkedList();
-    private LinkedList<Album> adqA = new LinkedList();
+    private LinkedList<Cancion> bbdd_Canciones;
+    private LinkedList<Album> bbdd_Albumes;
+    private LinkedList<Cancion> adqC;
+    private LinkedList<Album> adqA;
 
+    /**
+     * Constructor.
+     * @param bbdd_Canciones
+     * @param bbdd_Albumes
+     * @param adqC
+     * @param adqA 
+     */
+    public GestorCompras(LinkedList<Cancion> bbdd_Canciones, LinkedList<Album> bbdd_Albumes, LinkedList<Cancion> adqC, LinkedList<Album> adqA) {
+        this.bbdd_Canciones = bbdd_Canciones;
+        this.bbdd_Albumes = bbdd_Albumes;
+        this.adqC = adqC;
+        this.adqA = adqA;
+    }
     
+    /**
+     * 
+     * @param idCancion
+     * @return 
+     */
     public boolean adquirirCancion(int idCancion) {
         Iterator<Cancion> itc = adqC.iterator();
         while(itc.hasNext()){
@@ -41,7 +59,11 @@ public class GestorCompras {
     }
 
    
-    
+    /**
+     * 
+     * @param idAlbum
+     * @return 
+     */
     public boolean adquirirAlbum(int idAlbum) {
         Iterator<Album> itc = adqA.iterator();
         while(itc.hasNext()){
