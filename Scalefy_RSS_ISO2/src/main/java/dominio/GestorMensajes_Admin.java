@@ -8,9 +8,17 @@ import persistencia.Usuario;
  * @version 1.0
  */
 public class GestorMensajes_Admin {
-
     
-    LinkedList<Usuario> bbdd_Usuarios = new LinkedList();
+    private LinkedList<Usuario> bbdd_Usuarios;
+
+    /**
+     * Constructor
+     * @param bbdd_Usuarios 
+     */
+    public GestorMensajes_Admin(LinkedList<Usuario> bbdd_Usuarios) {
+        this.bbdd_Usuarios = bbdd_Usuarios;
+    }
+    
     
     /**
      * 
@@ -20,6 +28,9 @@ public class GestorMensajes_Admin {
      */
     public boolean enviarMensaje(int idUsuario, String mensaje) {
         Iterator<Usuario> it = bbdd_Usuarios.iterator();
+        if(mensaje == null){
+            return false;
+        }
         while(it.hasNext()){
             Usuario u = it.next();
             if(u.getIdUsuario() == idUsuario){

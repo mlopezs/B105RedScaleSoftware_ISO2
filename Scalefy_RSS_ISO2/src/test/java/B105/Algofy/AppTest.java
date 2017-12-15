@@ -3,6 +3,7 @@ package B105.Algofy;
 import dominio.GestorAlbumes_Admin;
 import dominio.GestorCanciones_Admin;
 import dominio.GestorListasReproduccion;
+import dominio.GestorMensajes_Admin;
 import dominio.GestorReproduccion;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -208,5 +209,17 @@ public class AppTest {
         
     }
     
-    //@Test
+    @Test
+    public void testGestorMensajesAdmin(){
+        LinkedList<Usuario> lu = new LinkedList();
+        lu.add(usuario1);
+        lu.add(usuario2);
+        
+        GestorMensajes_Admin gma = new GestorMensajes_Admin(lu);
+        
+        assertFalse(gma.enviarMensaje(0, null));
+        assertFalse(gma.enviarMensaje(5, "Mensaje"));
+        assertTrue(gma.enviarMensaje(1, "Mensaje"));
+        
+    }
 }
