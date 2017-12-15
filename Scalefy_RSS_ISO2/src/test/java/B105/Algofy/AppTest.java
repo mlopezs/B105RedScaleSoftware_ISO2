@@ -5,6 +5,7 @@ import dominio.GestorCanciones_Admin;
 import dominio.GestorListasReproduccion;
 import dominio.GestorMensajes_Admin;
 import dominio.GestorReproduccion;
+import dominio.GestorUsuarios_Admin;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -163,10 +164,15 @@ public class AppTest {
         
         assertTrue(gr.reproducirCancion(0));
         assertFalse(gr.reproducirCancion(4));
+        assertFalse(gr.reproducirCancion(-3));
+        
         assertTrue(gr.reproducirAlbum(0));
         assertFalse(gr.reproducirAlbum(9));
+        assertFalse(gr.reproducirAlbum(-3));
+        
         assertTrue(gr.reproducirListaReproduccion(0));
         assertFalse(gr.reproducirListaReproduccion(5));
+        assertFalse(gr.reproducirListaReproduccion(-3));
     }
     
     @Test
@@ -211,6 +217,7 @@ public class AppTest {
     
     @Test
     public void testGestorMensajesAdmin(){
+     
         LinkedList<Usuario> lu = new LinkedList();
         lu.add(usuario1);
         lu.add(usuario2);
@@ -221,5 +228,29 @@ public class AppTest {
         assertFalse(gma.enviarMensaje(5, "Mensaje"));
         assertTrue(gma.enviarMensaje(1, "Mensaje"));
         
+    }
+    
+    @Test
+    public void testGesstorUsuariosAdmin(){
+       
+        LinkedList<Usuario> lu = new LinkedList();
+        lu.add(usuario1);
+        lu.add(usuario2);
+        
+        Usuario ufid = new Usuario(0, "Moises", "Naidia", "moisror57", "123", 
+                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        Usuario ufap =usuario1 = new Usuario(3, "Moises", "Rodriguez Monje", 
+                "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        Usuario ua = new Usuario(5, "Acierto", "Jimenez", "acjim", "98h", 
+                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        
+        GestorUsuarios_Admin gua = new GestorUsuarios_Admin(lu);
+        
+        assertFalse(gua.añadirUsuario(ufid));
+        assertFalse(gua.añadirUsuario(ufap));
+        assertTrue(gua.añadirUsuario(ua));
+        
+        assertFalse(gua.eliminarUsuario(-9));
+        assertTrue(gua.eliminarUsuario(1));
     }
 }

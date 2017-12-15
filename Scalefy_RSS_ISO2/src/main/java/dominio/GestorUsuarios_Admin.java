@@ -9,9 +9,21 @@ import persistencia.*;
  */
 public class GestorUsuarios_Admin {
 
-    private LinkedList<Usuario> bbdd_Usuarios = new LinkedList();
+    private final LinkedList<Usuario> bbdd_Usuarios;
 
+    /**
+     * Constructor.
+     * @param bbdd_Usuarios 
+     */
+    public GestorUsuarios_Admin(LinkedList<Usuario> bbdd_Usuarios) {
+        this.bbdd_Usuarios = bbdd_Usuarios;
+    }
     
+    /**
+     * 
+     * @param usuario
+     * @return 
+     */
     public boolean añadirUsuario(Usuario usuario) {
          Iterator<Usuario> it = bbdd_Usuarios.iterator();
         while (it.hasNext()) {
@@ -30,7 +42,11 @@ public class GestorUsuarios_Admin {
         return true;
     }
 
-    
+    /**
+     * 
+     * @param idUsuario
+     * @return 
+     */
     public boolean eliminarUsuario(int idUsuario) {
         Iterator<Usuario> it = bbdd_Usuarios.iterator();
         while(it.hasNext()){
