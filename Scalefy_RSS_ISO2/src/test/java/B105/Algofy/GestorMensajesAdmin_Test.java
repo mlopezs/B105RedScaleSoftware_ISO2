@@ -11,50 +11,55 @@ import org.junit.Test;
 import persistencia.Usuario;
 
 public class GestorMensajesAdmin_Test {
-    
+
+    // Usuarios alamacenados
     private int[] cancionesAdquiridas1;
     private int[] cancionesAdquiridas2;
     private int[] listasReproduccion1;
     private Queue<String> mensajes;
     private Usuario usuario1;
     private Usuario usuario2;
-    
+
+    // Atributos para este gestor
+    private LinkedList<Usuario> lu;
+    private GestorMensajes_Admin gma;
+
     @Before
     public void setUp() throws Exception {
-        
+
+        // Usuarios alamacenados
         cancionesAdquiridas1 = new int[2];
         cancionesAdquiridas1[0] = 1;
         cancionesAdquiridas1[1] = 3;
-
         cancionesAdquiridas2 = new int[2];
         cancionesAdquiridas1[0] = 1;
         cancionesAdquiridas1[1] = 0;
-
         listasReproduccion1 = new int[2];
         listasReproduccion1[0] = 0;
         listasReproduccion1[1] = 1;
-
         mensajes = new PriorityQueue<String>();
-        usuario1 = new Usuario(0, "Moises", "Rodriguez Monje", "moisror57", 
+        usuario1 = new Usuario(0, "Moises", "Rodriguez Monje", "moisror57",
                 "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
-        usuario2 = new Usuario(1, "Ricardo", "Perez del Castillo", "ricper23", 
+        usuario2 = new Usuario(1, "Ricardo", "Perez del Castillo", "ricper23",
                 "456", cancionesAdquiridas2, listasReproduccion1, 999, mensajes);
 
+        // Atributos para este gestor
+        lu = new LinkedList();
+        lu.add(usuario1);
+        lu.add(usuario2);
+        gma = new GestorMensajes_Admin(lu);
+
     }
-    
+
     @Test
     public void testGestorMensajesAdmin() {
 
-        LinkedList<Usuario> lu = new LinkedList();
-        lu.add(usuario1);
-        lu.add(usuario2);
-
-        GestorMensajes_Admin gma = new GestorMensajes_Admin(lu);
-
+        assertFalse(gma.enviarMensaje(0, ""));
         assertFalse(gma.enviarMensaje(0, null));
-        assertFalse(gma.enviarMensaje(5, "Mensaje"));
+        assertFalse(gma.enviarMensaje(-1, "Mensaje"));
+        assertFalse(gma.enviarMensaje(4, "Mensaje"));
         assertTrue(gma.enviarMensaje(1, "Mensaje"));
 
     }
-    
+
 }

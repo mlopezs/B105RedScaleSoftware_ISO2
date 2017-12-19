@@ -2,7 +2,6 @@ package dominio;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Scanner;
 import persistencia.Cancion;
 import persistencia.ListaReproduccion;
 import persistencia.Usuario;
@@ -39,6 +38,14 @@ public class GestorListasReproduccion {
      * @return
      */
     public boolean crearLR(int idLista, int idUsuario, String nombreLista, int[] canciones) {
+       if(idUsuario < 0){
+           System.out.println("El id del usuario no es válido.");
+           return false;
+       }
+        if (idLista < 0 || nombreLista == null || nombreLista.equals("")) {
+            System.out.println("El id o nombre de la lista no son correctos");
+            return false;
+        }
         Iterator<Usuario> itu = bbdd_Usuarios.iterator();
         boolean flag = false;
         while (itu.hasNext()) {
@@ -57,10 +64,6 @@ public class GestorListasReproduccion {
                 return false;
             }
         }
-        if (idLista < 0 || nombreLista == null || nombreLista.equals("")) {
-            System.out.println("El id o nombre de la lista no son correctos");
-            return false;
-        }
         ListaReproduccion lr = new ListaReproduccion(idLista, nombreLista, idUsuario, canciones);
         bbdd_ListasReproduccion.add(lr);
         System.out.println("Lista \"" + nombreLista + "\" añadida con éxito.");
@@ -73,6 +76,10 @@ public class GestorListasReproduccion {
      * @return
      */
     public boolean borrarLR(int idListaReproduccion) {
+        if(idListaReproduccion < 0){
+            System.out.println("El id de la lista no es válido.");
+            return false;
+        }
         Iterator<ListaReproduccion> it = bbdd_ListasReproduccion.iterator();
         while (it.hasNext()) {
             ListaReproduccion l = it.next();
@@ -82,14 +89,15 @@ public class GestorListasReproduccion {
                 return true;
             }
         }
-        System.out.println("La lista de reproducción no ha podido ser eliminada");
+        System.out.println("La lista de reproducción no existe");
         return false;
     }
 
     /**
-     *
+     * 
      * @param idListaReproduccion
-     * @return
+     * @param lecturaTeclado
+     * @return 
      */
     public boolean modificarLR(int idListaReproduccion, String lecturaTeclado) {
         Iterator<ListaReproduccion> it = bbdd_ListasReproduccion.iterator();
