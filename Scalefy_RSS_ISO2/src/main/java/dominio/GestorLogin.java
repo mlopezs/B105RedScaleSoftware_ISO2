@@ -43,6 +43,12 @@ public class GestorLogin {
         return false;        
     }
 
+    /**
+     * 
+     * @param a
+     * @param b
+     * @return 
+     */
     private boolean compararContraseña(char[] a, char[] b) {
         for(int i = 0; i < a.length; i++){
             if(a[i] != b[i]){

@@ -3,7 +3,6 @@ package dominio;
 import java.util.Iterator;
 import java.util.LinkedList;
 import persistencia.*;
-import java.lang.NullPointerException;
 
 /**
  * @version 1.3
@@ -78,10 +77,10 @@ public class GestorCanciones_Admin {
      */
     public boolean modificarCancion(int idCancionVieja, Cancion cancionNueva) {
         boolean modificacion = true;
-        Cancion auxiliarSustitucion = null;
+        Cancion auxiliarSustitucion/* = null*/;
 
         Iterator<Cancion> cancionesBaseDeDatos = bbdd_Canciones.iterator();
-        int lugarCancion = 0;
+        int lugarCancion/* = 0*/;
 
         while (cancionesBaseDeDatos.hasNext()) {
             auxiliarSustitucion = cancionesBaseDeDatos.next();
@@ -91,7 +90,7 @@ public class GestorCanciones_Admin {
                 }
             } catch (NullPointerException e) {
                 System.out.println("ERROR, cancion nula");
-                modificacion = false;
+                //modificacion = false;
             }
             if (auxiliarSustitucion.getId() == idCancionVieja) {
                 lugarCancion = bbdd_Canciones.indexOf(auxiliarSustitucion);
@@ -109,9 +108,9 @@ public class GestorCanciones_Admin {
     }
 
     /**
-     *
-     * @param idCancion
-     * @return
+     * 
+     * @param idCancionEliminada
+     * @return 
      */
     public boolean eliminarCancion(int idCancionEliminada) {
         boolean eliminacion = true;
@@ -121,7 +120,7 @@ public class GestorCanciones_Admin {
         Iterator<Cancion> cancionesBaseDeDatos;
         cancionesBaseDeDatos = bbdd_Canciones.iterator();
         
-        int lugarCancion = 0;
+        int lugarCancion/* = 0*/;
 
         while (cancionesBaseDeDatos.hasNext()) {
             auxiliarSustitucion = cancionesBaseDeDatos.next();

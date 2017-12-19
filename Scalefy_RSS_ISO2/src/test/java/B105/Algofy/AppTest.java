@@ -69,9 +69,12 @@ public class AppTest {
         album1 = new Album(0, "Huyendo conmigo de mi", cancionesAlbum1);
         album2 = new Album(1, "Bad Bunny Hits", cancionesAlbum2);
 
-        cancion1 = new Cancion(0, "Entre la espada y la pared", "Fito y fitipaldis", 1, "Rock", 4.52);
-        cancion2 = new Cancion(1, "Lo que sobra de mi", "Fito y fitipaldis", 1, "Rock", 3.40);
-        cancion3 = new Cancion(2, "Pajaros disecados", "Fito y fitipaldis", 1, "Rock", 4.19);
+        cancion1 = new Cancion(0, "Entre la espada y la pared", "Fito y fitipaldis", 
+                1, "Rock", 4.52);
+        cancion2 = new Cancion(1, "Lo que sobra de mi", "Fito y fitipaldis", 1, 
+                "Rock", 3.40);
+        cancion3 = new Cancion(2, "Pajaros disecados", "Fito y fitipaldis", 1, 
+                "Rock", 4.19);
 
         cancion4 = new Cancion(3, "Sensualidad", "Bad Bunny", 1, "KK", 2.22);
         cancion5 = new Cancion(4, "Chambeo", "Bad Bunny", 1, "KK", 5.23);
@@ -90,8 +93,10 @@ public class AppTest {
         listasReproduccion1[1] = 1;
 
         mensajes = new PriorityQueue<String>();
-        usuario1 = new Usuario(0, "Moises", "Rodriguez Monje", "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
-        usuario2 = new Usuario(1, "Ricardo", "Perez del Castillo", "ricper23", "456", cancionesAdquiridas2, listasReproduccion1, 999, mensajes);
+        usuario1 = new Usuario(0, "Moises", "Rodriguez Monje", "moisror57", 
+                "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        usuario2 = new Usuario(1, "Ricardo", "Perez del Castillo", "ricper23", 
+                "456", cancionesAdquiridas2, listasReproduccion1, 999, mensajes);
 
         cancionesLista1 = new int[3];
         cancionesLista1[0] = 0;
@@ -103,8 +108,10 @@ public class AppTest {
         cancionesLista1[1] = 4;
         cancionesLista1[2] = 5;
 
-        lista1 = new ListaReproduccion(0, "Best lista de reproduccion", 1, cancionesLista1);
-        lista2 = new ListaReproduccion(1, "Worst lista de reproduccion", 1, cancionesLista2);
+        lista1 = new ListaReproduccion(0, "Best lista de reproduccion", 1, 
+                cancionesLista1);
+        lista2 = new ListaReproduccion(1, "Worst lista de reproduccion", 1, 
+                cancionesLista2);
     }
 
     @Test
@@ -238,7 +245,7 @@ public class AppTest {
     }
 
     @Test
-    public void testGesstorUsuariosAdmin() {
+    public void testGestorUsuariosAdmin() {
 
         LinkedList<Usuario> lu = new LinkedList();
         lu.add(usuario1);
@@ -247,7 +254,10 @@ public class AppTest {
         Usuario ufid = new Usuario(0, "Moises", "Naidia", "moisror57", "123",
                 cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
         Usuario ufap = usuario1 = new Usuario(3, "Moises", "Rodriguez Monje",
-                "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+                "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 
+                999, mensajes);
+        Usuario ufidn = new Usuario(-9, "Fallo", "Castillo", "acfsfd", "htsbh",
+                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
         Usuario ua = new Usuario(5, "Acierto", "Jimenez", "acjim", "98h",
                 cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
 
@@ -255,6 +265,7 @@ public class AppTest {
 
         assertFalse(gua.añadirUsuario(ufid));
         assertFalse(gua.añadirUsuario(ufap));
+        assertFalse(gua.añadirUsuario(ufidn));
         assertTrue(gua.añadirUsuario(ua));
 
         assertFalse(gua.eliminarUsuario(-9));
@@ -279,7 +290,7 @@ public class AppTest {
 
     @Test
     public void testGestorUsuarios() {
-
+ 
         LinkedList<Usuario> usu = new LinkedList();
         usu.add(usuario1);
 
@@ -309,8 +320,8 @@ public class AppTest {
         bdCanciones.add(cancion2);
         bdAlbumes.add(album2);
         
-        GestorCompras gc = new GestorCompras(bdCanciones, bdAlbumes, cancionesAdquiridas, 
-                albumesAdquiridos);
+        GestorCompras gc = new GestorCompras(bdCanciones, bdAlbumes, 
+                cancionesAdquiridas, albumesAdquiridos);
         
         assertFalse(gc.adquirirCancion(0));
         assertTrue(gc.adquirirCancion(1));

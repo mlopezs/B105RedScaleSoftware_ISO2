@@ -25,6 +25,10 @@ public class GestorUsuarios_Admin {
      * @return 
      */
     public boolean añadirUsuario(Usuario usuario) {
+        if(usuario.getIdUsuario() < 0){
+            System.out.println("ERROR. El id no puede ser negativo.");
+            return false;
+        }
          Iterator<Usuario> it = bbdd_Usuarios.iterator();
         while (it.hasNext()) {
             Usuario u = it.next();
