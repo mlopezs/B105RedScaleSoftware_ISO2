@@ -31,9 +31,7 @@ public class GestorCancionesAdmin_Test {
         LinkedList<Cancion> listaCancionesRetornadas;
         
         listaCanciones.add(cancion1);
-        GestorCanciones_Admin
-        
-        gca = new GestorCanciones_Admin(listaCanciones);
+        GestorCanciones_Admin gca = new GestorCanciones_Admin(listaCanciones);
         assertTrue(gca.añadirCancion(cancion2));
         assertFalse(gca.añadirCancion(cancion1));
         assertFalse(gca.añadirCancion(null));

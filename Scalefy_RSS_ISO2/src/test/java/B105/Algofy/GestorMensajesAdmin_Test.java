@@ -52,7 +52,7 @@ public class GestorMensajesAdmin_Test {
     }
 
     @Test
-    public void testGestorMensajesAdmin() {
+    public void testEnviarMensaje() {
 
         assertFalse(gma.enviarMensaje(0, ""));
         assertFalse(gma.enviarMensaje(0, null));

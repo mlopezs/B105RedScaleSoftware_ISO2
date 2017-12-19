@@ -12,12 +12,18 @@ import persistencia.Usuario;
 
 public class GestorUsuariosAdmin_Test {
 
+    // ALMACENADO EN BBDD
     private int[] cancionesAdquiridas1;
     private int[] cancionesAdquiridas2;
     private int[] listasReproduccion1;
     private Queue<String> mensajes;
     private Usuario usuario1;
     private Usuario usuario2;
+    
+    // Atributos para el gestor
+    private LinkedList<Usuario> lu;
+    private Usuario ufid, ufap, ufidn, ua;
+    private GestorUsuarios_Admin gua;
     
     @Before
     public void setUp() throws Exception {
@@ -39,35 +45,39 @@ public class GestorUsuariosAdmin_Test {
                 "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
         usuario2 = new Usuario(1, "Ricardo", "Perez del Castillo", "ricper23", 
                 "456", cancionesAdquiridas2, listasReproduccion1, 999, mensajes);
-
+        
+        lu = new LinkedList();
+        lu.add(usuario1);
+        lu.add(usuario2);
+        ufid = new Usuario(0, "Moises", "Naidia", "moisror57", "123",
+                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        ufap = usuario1 = new Usuario(3, "Moises", "Rodriguez Monje",
+                "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 
+                999, mensajes);
+        ufidn = new Usuario(-9, "Fallo", "Castillo", "acfsfd", "htsbh",
+                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        ua = new Usuario(5, "Acierto", "Jimenez", "acjim", "98h",
+                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+        gua = new GestorUsuarios_Admin(lu);
+        
     }
     
     @Test
-    public void testGestorUsuariosAdmin() {
-
-        LinkedList<Usuario> lu = new LinkedList();
-        lu.add(usuario1);
-        lu.add(usuario2);
-
-        Usuario ufid = new Usuario(0, "Moises", "Naidia", "moisror57", "123",
-                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
-        Usuario ufap = usuario1 = new Usuario(3, "Moises", "Rodriguez Monje",
-                "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 
-                999, mensajes);
-        Usuario ufidn = new Usuario(-9, "Fallo", "Castillo", "acfsfd", "htsbh",
-                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
-        Usuario ua = new Usuario(5, "Acierto", "Jimenez", "acjim", "98h",
-                cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
-
-        GestorUsuarios_Admin gua = new GestorUsuarios_Admin(lu);
+    public void testAñadirUsuario() {
 
         assertFalse(gua.añadirUsuario(ufid));
         assertFalse(gua.añadirUsuario(ufap));
         assertFalse(gua.añadirUsuario(ufidn));
         assertTrue(gua.añadirUsuario(ua));
-
+        
+    }
+    
+    @Test
+    public void testEliminarUsuario() {
+        
         assertFalse(gua.eliminarUsuario(-9));
         assertTrue(gua.eliminarUsuario(1));
+        
     }
     
 }

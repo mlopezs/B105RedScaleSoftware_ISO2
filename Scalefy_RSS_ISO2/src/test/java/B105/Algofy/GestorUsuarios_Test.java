@@ -12,14 +12,20 @@ import persistencia.Usuario;
 
 public class GestorUsuarios_Test {
 
+    // ALMACENADO EN BBDD
     private int[] cancionesAdquiridas1;
     private int[] cancionesAdquiridas2;
     private int[] listasReproduccion1;
     private Queue<String> mensajes;
     private Usuario usuario1;
     private Usuario usuario2;
+ 
+    // Atributos para el gestor
+    private LinkedList<Usuario> usu;
+    private GestorUsuarios gu;
+    private Usuario ufap;
     
-     @Before
+    @Before
     public void setUp() throws Exception {
         
         cancionesAdquiridas1 = new int[2];
@@ -39,19 +45,19 @@ public class GestorUsuarios_Test {
                 "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
         usuario2 = new Usuario(1, "Ricardo", "Perez del Castillo", "ricper23", 
                 "456", cancionesAdquiridas2, listasReproduccion1, 999, mensajes);
+ 
+        usu = new LinkedList();
+        usu.add(usuario1);
+
+        gu = new GestorUsuarios(usu);
+
+        ufap = new Usuario(3, "Moises", "Rodriguez Monje", "moisror57", 
+                "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
 
     }
     
     @Test
-    public void testGestorUsuarios() {
- 
-        LinkedList<Usuario> usu = new LinkedList();
-        usu.add(usuario1);
-
-        GestorUsuarios gu = new GestorUsuarios(usu);
-
-        Usuario ufap = new Usuario(3, "Moises", "Rodriguez Monje",
-                "moisror57", "123", cancionesAdquiridas1, listasReproduccion1, 999, mensajes);
+    public void testAñadirUsuario() {
 
         assertTrue(gu.anadirUsuario(usuario2));
         assertFalse(gu.anadirUsuario(usuario1));
