@@ -100,6 +100,12 @@ public class GestorListasReproduccion {
      * @return 
      */
     public boolean modificarLR(int idListaReproduccion, String lecturaTeclado) {
+        
+        if (lecturaTeclado == null || lecturaTeclado.equals("") || idListaReproduccion < 0) {
+            System.out.println("El id o nombre de la lista no son correctos");
+            return false;
+        }
+        
         Iterator<ListaReproduccion> it = bbdd_ListasReproduccion.iterator();
         while (it.hasNext()) {
             ListaReproduccion l = it.next();

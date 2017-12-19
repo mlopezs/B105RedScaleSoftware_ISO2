@@ -100,7 +100,6 @@ public class GestorListasReproduccion_Test {
     public void testCrearLR() {
 
         assertFalse(glr.crearLR(0, 4, "ListaNueva", cs));
-        assertFalse(glr.crearLR(7, 0, "ListaNueva", cs));
         assertFalse(glr.crearLR(0, 0, "ListaNueva", csf));
         assertFalse(glr.crearLR(-6, 0, "ListaNueva", cs));
         assertFalse(glr.crearLR(0, -6, "ListaNueva", cs));
@@ -125,7 +124,7 @@ public class GestorListasReproduccion_Test {
         assertFalse(glr.modificarLR(5, "NuevoNombre"));
         assertFalse(glr.modificarLR(1, ""));
         assertTrue(glr.modificarLR(0, "NuevoNombre"));
-
+        assertFalse(glr.modificarLR(0, null));
     }
     
     @Test
