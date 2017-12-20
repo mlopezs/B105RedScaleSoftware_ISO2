@@ -45,10 +45,17 @@ public class GestorCanciones_Admin {
      * @return
      */
     public LinkedList<Cancion> buscarCancion(String patron) {
-
+        
         Iterator<Cancion> it = bbdd_Canciones.iterator();
 
         LinkedList<Cancion> coincidencias = new LinkedList();
+        
+        if(patron == null){
+            
+            System.out.println("ERROR, patron nulo");
+            return coincidencias;
+        
+        }
 
         while (it.hasNext()) {
             Cancion cancion = it.next();
@@ -84,14 +91,12 @@ public class GestorCanciones_Admin {
 
         while (cancionesBaseDeDatos.hasNext()) {
             auxiliarSustitucion = cancionesBaseDeDatos.next();
-            try {
+            
                 if (cancionNueva == null) {
-                    throw new NullPointerException();
+                    modificacion = false;
+                    return modificacion;
                 }
-            } catch (NullPointerException e) {
-                System.out.println("ERROR, cancion nula");
-                //modificacion = false;
-            }
+
             if (auxiliarSustitucion.getId() == idCancionVieja) {
                 lugarCancion = bbdd_Canciones.indexOf(auxiliarSustitucion);
                 bbdd_Canciones.remove(lugarCancion);
@@ -114,15 +119,15 @@ public class GestorCanciones_Admin {
      */
     public boolean eliminarCancion(int idCancionEliminada) {
         boolean eliminacion = true;
-
+        
         Cancion auxiliarSustitucion;
 
         Iterator<Cancion> cancionesBaseDeDatos;
         cancionesBaseDeDatos = bbdd_Canciones.iterator();
         
         int lugarCancion/* = 0*/;
-
         while (cancionesBaseDeDatos.hasNext()) {
+            System.out.println("ADIOS");
             auxiliarSustitucion = cancionesBaseDeDatos.next();
             System.out.println(auxiliarSustitucion.getId()+" -> "+auxiliarSustitucion.getNombre());
                 if (auxiliarSustitucion.getId() == idCancionEliminada) {

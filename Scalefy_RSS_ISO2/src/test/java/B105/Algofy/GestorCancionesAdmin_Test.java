@@ -1,7 +1,11 @@
 package B105.Algofy;
 
 import dominio.GestorCanciones_Admin;
+import java.util.ArrayList;
+import static java.util.Collections.list;
 import java.util.LinkedList;
+import java.util.List;
+import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -11,9 +15,25 @@ import persistencia.Cancion;
 
 public class GestorCancionesAdmin_Test {
     
+    
+    // Canciones
     private Cancion cancion1;
     private Cancion cancion2;
+    private Cancion cancion3;
+
+    // Recursos necesarios de testing
+     private List<Cancion> listaCancionesRecibidas;
+     private List<Cancion> listaCancionesRecibidas2;
     
+    // Atributos para el gestor
+    private LinkedList<Cancion> listaCancionesGestor;
+    private GestorCanciones_Admin gca;
+    
+    // Listas test de busqueda
+    private LinkedList<Cancion> listaCancionesEsperadas;
+    private LinkedList<Cancion> listaCancionesEsperadas1;
+    private LinkedList<Cancion> listaCancionesEsperadas22;
+
     @Before
     public void setUp() throws Exception {
         
@@ -21,37 +41,72 @@ public class GestorCancionesAdmin_Test {
                 1, "Rock", 4.52);
         cancion2 = new Cancion(1, "Lo que sobra de mi", "Fito y fitipaldis", 1, 
                 "Rock", 3.40);
+        
+        cancion3 = new Cancion(2, "Pajaros disecados", "Fito y fitipaldis", 1, 
+                "Rock", 4.19);
 
+       listaCancionesGestor = new LinkedList<Cancion>();
+       listaCancionesGestor.add(cancion1);
+       listaCancionesGestor.add(cancion2);
+       
+       listaCancionesEsperadas = new LinkedList();
+       
+       gca = new GestorCanciones_Admin(listaCancionesGestor);
+       
+        listaCancionesEsperadas = new LinkedList<Cancion>();
+        listaCancionesEsperadas.add(cancion1);
+        
+        listaCancionesEsperadas1 = new LinkedList<Cancion>();
+        listaCancionesEsperadas1.add(cancion1);
+        listaCancionesEsperadas1.add(cancion2);
+                    
     }
     
     @Test
-    public void testGestorCancionesAdmin() {
+    public void testAñadirCancion(){
         
-        LinkedList<Cancion> listaCanciones = new LinkedList();
-        LinkedList<Cancion> listaCancionesRetornadas;
-        
-        listaCanciones.add(cancion1);
-        GestorCanciones_Admin gca = new GestorCanciones_Admin(listaCanciones);
-        assertTrue(gca.añadirCancion(cancion2));
+        assertTrue(gca.añadirCancion(cancion3));
         assertFalse(gca.añadirCancion(cancion1));
         assertFalse(gca.añadirCancion(null));
         
-        listaCancionesRetornadas = gca.buscarCancion("espada");
-        for (int i = 0; i < listaCancionesRetornadas.size(); i++) {
-            assertEquals(listaCancionesRetornadas.get(i), listaCanciones.get(i));
-        }
+    }
+    
+    @Test
+    public void testBuscarCancion(){
+        
+        listaCancionesRecibidas = gca.buscarCancion("espada");
+        listaCancionesRecibidas2 = gca.buscarCancion("");
 
-        listaCancionesRetornadas = gca.buscarCancion("");
-        for (int i = 0; i < listaCancionesRetornadas.size(); i++) {
-            assertEquals(listaCancionesRetornadas.get(i), listaCanciones.get(i));
+        for(int i = 0; i < listaCancionesRecibidas.size(); i++){
+            assertEquals(listaCancionesEsperadas.get(i), listaCancionesRecibidas.get(i));
         }
         
-        assertTrue(gca.modificarCancion(0, cancion2));
-        assertFalse(gca.modificarCancion(0, cancion1));
-        assertFalse(gca.modificarCancion(0, null));
         
-        assertTrue(gca.eliminarCancion(1));
-        assertFalse(gca.eliminarCancion(2));
+        for(int i = 0; i < listaCancionesRecibidas.size(); i++){
+            assertEquals(listaCancionesEsperadas1.get(i), listaCancionesRecibidas2.get(i));
+        }
+        
+        
+        assertTrue(gca.buscarCancion(null).isEmpty());
         
     }
+    
+    @Test
+    public void testModificarCancion(){
+        
+        assertTrue(gca.modificarCancion(0, cancion3));
+        assertFalse(gca.modificarCancion(0, cancion1));
+        assertFalse(gca.modificarCancion(0, null));
+         
+    } 
+    
+    @Test
+    public void testEliminarCancion(){
+        
+        assertTrue(gca.eliminarCancion(0));
+        assertFalse(gca.eliminarCancion(2));
+        assertFalse(gca.eliminarCancion(-1));
+        
+    } 
+
 }

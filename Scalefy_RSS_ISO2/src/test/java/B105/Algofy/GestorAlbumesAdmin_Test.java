@@ -37,16 +37,16 @@ public class GestorAlbumesAdmin_Test {
         
         // Atributos de la clase
         listaAlbumesTest = new LinkedList();
-        listaAlbumesTest.add(album2);
+        listaAlbumesTest.add(album1);
         gaa = new GestorAlbumes_Admin(listaAlbumesTest);
         
     }
     
     @Test
-    public void testAñadirAlbum() {
-
-        assertTrue(gaa.añadirAlbum(album1));
-        assertFalse(gaa.añadirAlbum(album2));
+    public void testAñadirAlbum() {       
+        
+        assertTrue(gaa.añadirAlbum(album2));
+        assertFalse(gaa.añadirAlbum(album1));
         assertFalse(gaa.añadirAlbum(null));
         
     }
@@ -55,7 +55,7 @@ public class GestorAlbumesAdmin_Test {
     public void testEliminarAlbum(){
         
         assertTrue(gaa.eliminarAlbum(album1.getId()));
-        assertFalse(gaa.eliminarAlbum(album1.getId()));
+        assertFalse(gaa.eliminarAlbum(album2.getId()));
         assertFalse(gaa.eliminarAlbum(-12));
         
     }
