@@ -18,7 +18,6 @@ public class GestorCancionesAdmin_Test {
     
     // Canciones
     private Cancion cancion1;
-    private Cancion cancion2;
     private Cancion cancion3;
 
     // Recursos necesarios de testing
@@ -32,22 +31,18 @@ public class GestorCancionesAdmin_Test {
     // Listas test de busqueda
     private LinkedList<Cancion> listaCancionesEsperadas;
     private LinkedList<Cancion> listaCancionesEsperadas1;
-    private LinkedList<Cancion> listaCancionesEsperadas22;
 
     @Before
     public void setUp() throws Exception {
         
         cancion1 = new Cancion(0, "Entre la espada y la pared", "Fito y fitipaldis", 
                 1, "Rock", 4.52);
-        cancion2 = new Cancion(1, "Lo que sobra de mi", "Fito y fitipaldis", 1, 
-                "Rock", 3.40);
         
         cancion3 = new Cancion(2, "Pajaros disecados", "Fito y fitipaldis", 1, 
                 "Rock", 4.19);
 
        listaCancionesGestor = new LinkedList<Cancion>();
        listaCancionesGestor.add(cancion1);
-       listaCancionesGestor.add(cancion2);
        
        listaCancionesEsperadas = new LinkedList();
        
@@ -58,7 +53,6 @@ public class GestorCancionesAdmin_Test {
         
         listaCancionesEsperadas1 = new LinkedList<Cancion>();
         listaCancionesEsperadas1.add(cancion1);
-        listaCancionesEsperadas1.add(cancion2);
                     
     }
     
@@ -95,8 +89,8 @@ public class GestorCancionesAdmin_Test {
     public void testModificarCancion(){
         
         assertTrue(gca.modificarCancion(0, cancion3));
-        assertFalse(gca.modificarCancion(0, cancion1));
-        assertFalse(gca.modificarCancion(0, null));
+        assertFalse(gca.modificarCancion(-1, cancion1));
+        assertFalse(gca.modificarCancion(2, null));
          
     } 
     
@@ -104,7 +98,7 @@ public class GestorCancionesAdmin_Test {
     public void testEliminarCancion(){
         
         assertTrue(gca.eliminarCancion(0));
-        assertFalse(gca.eliminarCancion(2));
+        assertFalse(gca.eliminarCancion(80));
         assertFalse(gca.eliminarCancion(-1));
         
     } 

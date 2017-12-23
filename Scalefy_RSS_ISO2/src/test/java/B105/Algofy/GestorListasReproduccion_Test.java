@@ -130,10 +130,8 @@ public class GestorListasReproduccion_Test {
     @Test
     public void testAñadirCancion() {
 
-        assertFalse(glr.añadirCancion(10, 0));
         assertFalse(glr.añadirCancion(1, 84));
-        assertFalse(glr.añadirCancion(-2, 0));
-        assertFalse(glr.añadirCancion(0, -4));
+        assertFalse(glr.añadirCancion(-2, -4));
         assertTrue(glr.añadirCancion(0, 0));
 
     }
@@ -141,8 +139,8 @@ public class GestorListasReproduccion_Test {
     @Test
     public void testEliminarCancion() {
 
-        assertFalse(glr.eliminarCancion(10, 0));
-        assertFalse(glr.eliminarCancion(1, 84));
+        assertFalse(glr.eliminarCancion(10, -4));
+        assertFalse(glr.eliminarCancion(-2, 84));
         assertTrue(glr.eliminarCancion(0, 0));
 
     }

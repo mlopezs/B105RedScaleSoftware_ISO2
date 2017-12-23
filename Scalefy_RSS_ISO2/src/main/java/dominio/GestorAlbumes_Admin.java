@@ -10,10 +10,10 @@ import persistencia.*;
  */
 public class GestorAlbumes_Admin {
 
-    LinkedList<Album> bbdd_Albumes;
+    private final LinkedList<Album> bbdd_Albumes;
 
-    public GestorAlbumes_Admin(LinkedList<Album> bbdd_Albumes) {
-        this.bbdd_Albumes = bbdd_Albumes;
+    public GestorAlbumes_Admin(LinkedList<Album> bbddAlbumes) {
+        this.bbdd_Albumes = bbddAlbumes;
     }
 
     /**
@@ -45,9 +45,9 @@ public class GestorAlbumes_Admin {
     public boolean eliminarAlbum(int idAlbum) {
         Iterator<Album> it = bbdd_Albumes.iterator();
         while (it.hasNext()) {
-            Album a = it.next();
-            if (a.getId() == idAlbum) {
-                bbdd_Albumes.remove(a);
+            Album albumAuxiliar = it.next();
+            if (albumAuxiliar.getId() == idAlbum) {
+                bbdd_Albumes.remove(albumAuxiliar);
                 return true;
             }
         }

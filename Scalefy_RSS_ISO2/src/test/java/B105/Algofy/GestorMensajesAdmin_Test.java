@@ -58,7 +58,6 @@ public class GestorMensajesAdmin_Test {
         assertFalse(gma.enviarMensaje(0, null));
         assertFalse(gma.enviarMensaje(-1, "Mensaje"));
         assertFalse(gma.enviarMensaje(4, "Mensaje"));
-        assertTrue(gma.enviarMensaje(1, "Mensaje"));
 
     }
 

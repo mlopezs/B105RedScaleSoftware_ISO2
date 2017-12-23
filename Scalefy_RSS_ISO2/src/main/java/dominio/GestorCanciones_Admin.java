@@ -11,8 +11,8 @@ public class GestorCanciones_Admin {
 
     private final LinkedList<Cancion> bbdd_Canciones;
 
-    public GestorCanciones_Admin(LinkedList<Cancion> bbdd_Canciones) {
-        this.bbdd_Canciones = bbdd_Canciones;
+    public GestorCanciones_Admin(LinkedList<Cancion> bbddCanciones) {
+        this.bbdd_Canciones = bbddCanciones;
     }
 
     /**
@@ -21,10 +21,10 @@ public class GestorCanciones_Admin {
      * @return
      */
     public boolean añadirCancion(Cancion cancion) {
-        Iterator<Cancion> it = bbdd_Canciones.iterator();
-        while (it.hasNext()) {
+        Iterator<Cancion> iteradorBbddCanciones = bbdd_Canciones.iterator();
+        while (iteradorBbddCanciones.hasNext()) {
             try {
-                if (it.next().getId() == cancion.getId()) {
+                if (iteradorBbddCanciones.next().getId() == cancion.getId()) {
                     System.out.println("ERROR. La cancion ya existe.");
                     return false;
                 }
@@ -46,7 +46,7 @@ public class GestorCanciones_Admin {
      */
     public LinkedList<Cancion> buscarCancion(String patron) {
         
-        Iterator<Cancion> it = bbdd_Canciones.iterator();
+        Iterator<Cancion> iteradorCanciones = bbdd_Canciones.iterator();
 
         LinkedList<Cancion> coincidencias = new LinkedList();
         
@@ -57,8 +57,8 @@ public class GestorCanciones_Admin {
         
         }
 
-        while (it.hasNext()) {
-            Cancion cancion = it.next();
+        while (iteradorCanciones.hasNext()) {
+            Cancion cancion = iteradorCanciones.next();
             if (cancion.getArtista().contains(patron) || cancion.getNombre().contains(patron)) {
                 coincidencias.add(cancion);
             }
@@ -118,7 +118,7 @@ public class GestorCanciones_Admin {
      * @return 
      */
     public boolean eliminarCancion(int idCancionEliminada) {
-        boolean eliminacion = true;
+        boolean eliminacion = false;
         
         Cancion auxiliarSustitucion;
 
@@ -135,8 +135,6 @@ public class GestorCanciones_Admin {
                     bbdd_Canciones.remove(lugarCancion);
                     eliminacion = true;
                     break;
-                } else {
-                    eliminacion = false;
                 }
 
         }
