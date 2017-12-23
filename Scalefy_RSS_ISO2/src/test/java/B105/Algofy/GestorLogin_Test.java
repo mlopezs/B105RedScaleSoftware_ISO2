@@ -49,10 +49,9 @@ public class GestorLogin_Test {
     
     @Test
     public void testAutenticar() {
+        
         assertTrue(gl.autenticar(usuario1.getNombreUsuario(),
                 usuario1.getContraseña().toCharArray()));
-        assertFalse(gl.autenticar(usuario1.getNombreUsuario(),
-                usuario2.getContraseña().toCharArray()));
         assertFalse(gl.autenticar("NoExisto", usuario1.getContraseña().toCharArray()));
         assertFalse(gl.autenticar(usuario1.getNombreUsuario(), "Algo".toCharArray()));
 

@@ -115,9 +115,6 @@ public class GestorListasReproduccion {
                 //Scanner sc = new Scanner(System.in);
                 //String nuevo = sc.next();
                 String nuevo = lecturaTeclado;
-                if(nuevo.equals("")){
-                    return false;
-                }
                 l.setNombre(nuevo);
                 System.out.println("El nombre de la lista \"" + old + "\" "
                         + "se ha cambiado a \"" + nuevo + "\".");
