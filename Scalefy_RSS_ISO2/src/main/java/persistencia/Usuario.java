@@ -12,23 +12,25 @@ public class Usuario {
     private String apellidos;
     private String nombreUsuario;
     private String contraseña;
-    private int[] cancionesAdquiridas;
-    private int[] listasReproduccion;
+    private int[] cancionesAdq;
+    private int[] listasReprod;
     private double saldo;
     private Queue<String> mensajes;
 
-    public Usuario(int idUsuario, String nombre, String apellidos, String nombreUsuario, String contraseña, int[] cancionesAdquiridas, int[] listasReproduccion, double saldo, Queue<String> mensajes) {
+    public Usuario(int idUsuario, String nombre, String apellidos,
+            String nombreUsuario, String contraseña, int[] cancionesAdq,
+            int[] listasReprod, double saldo, Queue<String> mensajes) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
-        this.cancionesAdquiridas = cancionesAdquiridas;
-        this.listasReproduccion = listasReproduccion;
+        this.cancionesAdq = cancionesAdq;
+        this.listasReprod = listasReprod;
         this.saldo = saldo;
         this.mensajes = mensajes;
     }
-    
+
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -70,19 +72,19 @@ public class Usuario {
     }
 
     public int[] getCancionesAdquiridas() {
-        return cancionesAdquiridas;
+        return cancionesAdq;
     }
 
-    public void setCancionesAdquiridas(int[] cancionesAdquiridas) {
-        this.cancionesAdquiridas = cancionesAdquiridas;
+    public void setCancionesAdquiridas(int[] cancionesAdq) {
+        this.cancionesAdq = cancionesAdq;
     }
 
     public int[] getListasReproduccion() {
-        return listasReproduccion;
+        return listasReprod;
     }
 
-    public void setListasReproduccion(int[] listasReproduccion) {
-        this.listasReproduccion = listasReproduccion;
+    public void setListasReproduccion(int[] listasReprod) {
+        this.listasReprod = listasReprod;
     }
 
     public Queue<String> getMensajes() {
@@ -104,8 +106,10 @@ public class Usuario {
      * @param saldoDeseado
      * @return
      */
-    public double añadirSaldo(String numTarjeta, int cvvTarjeta, double saldoDeseado) {
-        boolean din = comprobarDatosBancarios(numTarjeta, cvvTarjeta, saldoDeseado);
+    public double añadirSaldo(String numTarjeta,
+            int cvvTarjeta, double saldoDeseado) {
+        boolean din = comprobarDatosBancarios(numTarjeta,
+                cvvTarjeta, saldoDeseado);
         if (din) {
             this.saldo += saldoDeseado;
             return this.saldo;
@@ -121,9 +125,11 @@ public class Usuario {
      * @param saldoDeseado
      * @return
      */
-    private boolean comprobarDatosBancarios(String numTarjeta, int cvvTarjeta, double saldoDeseado) {
-        System.out.printf("Comprobando datos\nTarjeta -> %s\nCVV -> %d\n"
-                + "SaldoDeseado -> %.2f euros.", numTarjeta, cvvTarjeta, saldoDeseado);
+    private boolean comprobarDatosBancarios(String numTarjeta,
+            int cvvTarjeta, double saldoDeseado) {
+        System.out.printf("Comprobando datos%nTarjeta -> %s%nCVV -> %d%n"
+                + "SaldoDeseado -> %.2f euros.", numTarjeta,
+                cvvTarjeta, saldoDeseado);
         return true;
     }
 

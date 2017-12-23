@@ -8,34 +8,36 @@ import persistencia.Usuario;
  * @version 1.0
  */
 public class GestorMensajes_Admin {
-    
+
     private final LinkedList<Usuario> bbdd_Usuarios;
 
     /**
      * Constructor
-     * @param bbdd_Usuarios 
+     *
+     * @param bbddUsuarios
      */
-    public GestorMensajes_Admin(LinkedList<Usuario> bbdd_Usuarios) {
-        this.bbdd_Usuarios = bbdd_Usuarios;
+    public GestorMensajes_Admin(LinkedList<Usuario> bbddUsuarios) {
+        this.bbdd_Usuarios = bbddUsuarios;
     }
-    
+
     /**
-     * 
+     *
      * @param idUsuario
      * @param mensaje
-     * @return 
+     * @return
      */
     public boolean enviarMensaje(int idUsuario, String mensaje) {
-        Iterator<Usuario> it = bbdd_Usuarios.iterator();
-        if(mensaje == null || mensaje.equals("") || idUsuario < 0){
+        Iterator<Usuario> itUsuario = bbdd_Usuarios.iterator();
+        if (mensaje == null || mensaje.equals("") || idUsuario < 0) {
             return false;
         }
-        while(it.hasNext()){
-            Usuario u = it.next();
-            if(u.getIdUsuario() == idUsuario){
-                u.getMensajes().add(mensaje);
-                System.out.println("Mensaje enviado con éxito a *" + u.getNombre() + 
-                        "*:\n\"" + mensaje + "\".");
+        while (itUsuario.hasNext()) {
+            Usuario auxUsuario = itUsuario.next();
+            if (auxUsuario.getIdUsuario() == idUsuario) {
+                auxUsuario.getMensajes().add(mensaje);
+                System.out.println("Mensaje enviado con éxito a *"
+                        + auxUsuario.getNombre()
+                        + "*:\n\"" + mensaje + "\".");
                 return true;
             }
         }

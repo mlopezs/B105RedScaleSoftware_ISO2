@@ -9,83 +9,89 @@ import persistencia.Cancion;
  * @version 1.0
  */
 public class GestorCompras {
-    
-    private LinkedList<Cancion> bbdd_Canciones;
-    private LinkedList<Album> bbdd_Albumes;
+
+    private final LinkedList<Cancion> bbdd_Canciones;
+    private final LinkedList<Album> bbdd_Albumes;
     private LinkedList<Cancion> adqC;
     private LinkedList<Album> adqA;
 
     /**
      * Constructor.
-     * @param bbdd_Canciones
-     * @param bbdd_Albumes
+     *
+     * @param bbddCanciones
+     * @param bbddAlbumes
      * @param adqC
-     * @param adqA 
+     * @param adqA
      */
-    public GestorCompras(LinkedList<Cancion> bbdd_Canciones, LinkedList<Album> bbdd_Albumes, LinkedList<Cancion> adqC, LinkedList<Album> adqA) {
-        this.bbdd_Canciones = bbdd_Canciones;
-        this.bbdd_Albumes = bbdd_Albumes;
+    public GestorCompras(LinkedList<Cancion> bbddCanciones,
+            LinkedList<Album> bbddAlbumes, LinkedList<Cancion> adqC,
+            LinkedList<Album> adqA) {
+        this.bbdd_Canciones = bbddCanciones;
+        this.bbdd_Albumes = bbddAlbumes;
         this.adqC = adqC;
         this.adqA = adqA;
     }
-    
+
     /**
-     * 
+     *
      * @param idCancion
-     * @return 
+     * @return
      */
     public boolean adquirirCancion(int idCancion) {
         Iterator<Cancion> itc = adqC.iterator();
-        while(itc.hasNext()){
-            Cancion c = itc.next();
-            if(c.getId() == idCancion){
-                System.out.println("Ya posee la canción \"" + c.getNombre() + "\".");
+        while (itc.hasNext()) {
+            Cancion auxCancion = itc.next();
+            if (auxCancion.getId() == idCancion) {
+                System.out.println("Ya posee la canción \""
+                        + auxCancion.getNombre() + "\".");
                 return false;
             }
         }
-        
+
         Iterator<Cancion> itb = bbdd_Canciones.iterator();
-        while(itb.hasNext()){
-            Cancion c = itb.next();
-            if(c.getId() == idCancion){
-                adqC.add(c);
-                System.out.println("Ha adquirido la canción \"" + c.getNombre() + "\".");
+        while (itb.hasNext()) {
+            Cancion auxCancion = itb.next();
+            if (auxCancion.getId() == idCancion) {
+                adqC.add(auxCancion);
+                System.out.println("Ha adquirido la canción \""
+                        + auxCancion.getNombre() + "\".");
                 return true;
             }
         }
-        
+
         System.out.println("No se ha podido adquirir la canción.");
-        return false;        
+        return false;
     }
 
-   
     /**
-     * 
+     *
      * @param idAlbum
-     * @return 
+     * @return
      */
     public boolean adquirirAlbum(int idAlbum) {
         Iterator<Album> itc = adqA.iterator();
-        while(itc.hasNext()){
-            Album a = itc.next();
-            if(a.getId() == idAlbum){
-                System.out.println("Ya posee la canción \"" + a.getNombre() + "\".");
+        while (itc.hasNext()) {
+            Album auxAlbum = itc.next();
+            if (auxAlbum.getId() == idAlbum) {
+                System.out.println("Ya posee la canción \""
+                        + auxAlbum.getNombre() + "\".");
                 return false;
             }
         }
-        
+
         Iterator<Album> itb = bbdd_Albumes.iterator();
-        while(itb.hasNext()){
-            Album c = itb.next();
-            if(c.getId() == idAlbum){
-                adqA.add(c);
-                System.out.println("Ha adquirido el álbum \"" + c.getNombre() + "\".");
+        while (itb.hasNext()) {
+            Album auxCancion = itb.next();
+            if (auxCancion.getId() == idAlbum) {
+                adqA.add(auxCancion);
+                System.out.println("Ha adquirido el álbum \""
+                        + auxCancion.getNombre() + "\".");
                 return true;
             }
         }
-        
+
         System.out.println("No se ha podido adquirir la canción.");
-        return false;  
+        return false;
     }
 
 }

@@ -5,13 +5,14 @@ package persistencia;
  */
 public class ListaReproduccion {
 
-    private int id;
+    private int idListaReprod;
     private String nombre;
     private int idUsuario;
     private int[] canciones;
 
-    public ListaReproduccion(int id, String nombre, int idUsuario, int[] canciones) {
-        this.id = id;
+    public ListaReproduccion(int idListaReprod, String nombre,
+            int idUsuario, int[] canciones) {
+        this.idListaReprod = idListaReprod;
         this.nombre = nombre;
         this.idUsuario = idUsuario;
         this.canciones = canciones;
@@ -32,12 +33,12 @@ public class ListaReproduccion {
     public int[] getCanciones() {
         return this.canciones;
     }
-    
-    public int getId(){
-        return this.id;
+
+    public int getId() {
+        return this.idListaReprod;
     }
-    
-    public void setCanciones(int[] canciones){
+
+    public void setCanciones(int[] canciones) {
         this.canciones = canciones;
     }
 

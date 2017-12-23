@@ -1,26 +1,34 @@
 package persistencia;
 
 /**
-*@version 1.0
-*/
+ * @version 1.0
+ */
 public class Album {
 
-	private int id;
-	private String nombre;
-	private int[] canciones;
+    private int idAlbum;
+    private String nombre;
+    private int[] canciones;
 
-    public Album(int id, String nombre, int[] canciones) {
-        this.id = id;
+    public Album(int idAlbum, String nombre, int[] canciones) {
+        this.idAlbum = idAlbum;
         this.nombre = nombre;
         this.canciones = canciones;
     }
-        
-	public int getId() {
-		return this.id;
-	}
 
-	public String getNombre() {
-		return this.nombre;
-	}
+    public int getId() {
+        return this.idAlbum;
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public int[] getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(int[] canciones) {
+        this.canciones = canciones;
+    }
 
 }

@@ -2,7 +2,7 @@ package dominio;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import persistencia.*;
+import persistencia.Cancion;
 
 /**
  * @version 1.3
@@ -11,6 +11,10 @@ public class GestorCanciones_Admin {
 
     private final LinkedList<Cancion> bbdd_Canciones;
 
+    /**
+     *
+     * @param bbddCanciones
+     */
     public GestorCanciones_Admin(LinkedList<Cancion> bbddCanciones) {
         this.bbdd_Canciones = bbddCanciones;
     }
@@ -21,10 +25,10 @@ public class GestorCanciones_Admin {
      * @return
      */
     public boolean añadirCancion(Cancion cancion) {
-        Iterator<Cancion> iteradorBbddCanciones = bbdd_Canciones.iterator();
-        while (iteradorBbddCanciones.hasNext()) {
+        Iterator<Cancion> itBbddCanciones = bbdd_Canciones.iterator();
+        while (itBbddCanciones.hasNext()) {
             try {
-                if (iteradorBbddCanciones.next().getId() == cancion.getId()) {
+                if (itBbddCanciones.next().getId() == cancion.getId()) {
                     System.out.println("ERROR. La cancion ya existe.");
                     return false;
                 }
@@ -45,32 +49,33 @@ public class GestorCanciones_Admin {
      * @return
      */
     public LinkedList<Cancion> buscarCancion(String patron) {
-        
-        Iterator<Cancion> iteradorCanciones = bbdd_Canciones.iterator();
+
+        Iterator<Cancion> itCanciones = bbdd_Canciones.iterator();
 
         LinkedList<Cancion> coincidencias = new LinkedList();
-        
-        if(patron == null){
-            
+
+        if (patron == null) {
+
             System.out.println("ERROR, patron nulo");
             return coincidencias;
-        
+
         }
 
-        while (iteradorCanciones.hasNext()) {
-            Cancion cancion = iteradorCanciones.next();
-            if (cancion.getArtista().contains(patron) || cancion.getNombre().contains(patron)) {
+        while (itCanciones.hasNext()) {
+            Cancion cancion = itCanciones.next();
+            if (cancion.getArtista().contains(patron)
+                    || cancion.getNombre().contains(patron)) {
                 coincidencias.add(cancion);
             }
         }
 
-        Iterator<Cancion> itc = coincidencias.iterator();
+        Iterator<Cancion> itCoincidencias = coincidencias.iterator();
 
         if (coincidencias.size() > 0) {
             System.out.println("Coincidencias encontradas: \n");
         }
-        while (itc.hasNext()) {
-            System.out.println(itc.next().toString());
+        while (itCoincidencias.hasNext()) {
+            System.out.println(itCoincidencias.next().toString());
         }
 
         return coincidencias;
@@ -84,21 +89,21 @@ public class GestorCanciones_Admin {
      */
     public boolean modificarCancion(int idCancionVieja, Cancion cancionNueva) {
         boolean modificacion = true;
-        Cancion auxiliarSustitucion/* = null*/;
+        Cancion auxCancion;
 
-        Iterator<Cancion> cancionesBaseDeDatos = bbdd_Canciones.iterator();
-        int lugarCancion/* = 0*/;
+        Iterator<Cancion> itCanciones = bbdd_Canciones.iterator();
+        int lugarCancion;
 
-        while (cancionesBaseDeDatos.hasNext()) {
-            auxiliarSustitucion = cancionesBaseDeDatos.next();
-            
-                if (cancionNueva == null) {
-                    modificacion = false;
-                    return modificacion;
-                }
+        while (itCanciones.hasNext()) {
+            auxCancion = itCanciones.next();
 
-            if (auxiliarSustitucion.getId() == idCancionVieja) {
-                lugarCancion = bbdd_Canciones.indexOf(auxiliarSustitucion);
+            if (cancionNueva == null) {
+                modificacion = false;
+                return modificacion;
+            }
+
+            if (auxCancion.getId() == idCancionVieja) {
+                lugarCancion = bbdd_Canciones.indexOf(auxCancion);
                 bbdd_Canciones.remove(lugarCancion);
                 bbdd_Canciones.add(lugarCancion, cancionNueva);
                 modificacion = true;
@@ -113,34 +118,30 @@ public class GestorCanciones_Admin {
     }
 
     /**
-     * 
-     * @param idCancionEliminada
-     * @return 
+     *
+     * @param idEliminacion
+     * @return
      */
-    public boolean eliminarCancion(int idCancionEliminada) {
+    public boolean eliminarCancion(int idEliminacion) {
         boolean eliminacion = false;
-        
-        Cancion auxiliarSustitucion;
 
-        Iterator<Cancion> cancionesBaseDeDatos;
-        cancionesBaseDeDatos = bbdd_Canciones.iterator();
-        
-        int lugarCancion/* = 0*/;
-        while (cancionesBaseDeDatos.hasNext()) {
-            System.out.println("ADIOS");
-            auxiliarSustitucion = cancionesBaseDeDatos.next();
-            System.out.println(auxiliarSustitucion.getId()+" -> "+auxiliarSustitucion.getNombre());
-                if (auxiliarSustitucion.getId() == idCancionEliminada) {
-                    lugarCancion = bbdd_Canciones.indexOf(auxiliarSustitucion);
-                    bbdd_Canciones.remove(lugarCancion);
-                    eliminacion = true;
-                    break;
-                }
+        Cancion auxCancion;
 
-        }
+        Iterator<Cancion> itCanciones;
+        itCanciones = bbdd_Canciones.iterator();
 
-        if (eliminacion == true) {
-            System.out.println("Eliminación exitosa.");
+        int lugarCancion;
+        while (itCanciones.hasNext()) {
+            auxCancion = itCanciones.next();
+            System.out.println(auxCancion.getId() + " -> "
+                    + auxCancion.getNombre());
+            if (auxCancion.getId() == idEliminacion) {
+                lugarCancion = bbdd_Canciones.indexOf(auxCancion);
+                bbdd_Canciones.remove(lugarCancion);
+                eliminacion = true;
+                break;
+            }
+
         }
 
         return eliminacion;

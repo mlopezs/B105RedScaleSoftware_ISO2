@@ -64,7 +64,6 @@ public class GestorUsuariosAdmin_Test {
     
     @Test
     public void testAñadirUsuario() {
-
         assertFalse(gua.añadirUsuario(ufid));
         assertFalse(gua.añadirUsuario(ufap));
         assertFalse(gua.añadirUsuario(ufidn));

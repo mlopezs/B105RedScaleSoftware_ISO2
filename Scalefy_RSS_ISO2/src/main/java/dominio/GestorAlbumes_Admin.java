@@ -2,7 +2,7 @@ package dominio;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import persistencia.*;
+import persistencia.Album;
 
 /**
  *
@@ -12,6 +12,10 @@ public class GestorAlbumes_Admin {
 
     private final LinkedList<Album> bbdd_Albumes;
 
+    /**
+     *
+     * @param bbddAlbumes
+     */
     public GestorAlbumes_Admin(LinkedList<Album> bbddAlbumes) {
         this.bbdd_Albumes = bbddAlbumes;
     }
@@ -19,13 +23,13 @@ public class GestorAlbumes_Admin {
     /**
      *
      * @param album
-     * @return 
+     * @return
      */
     public boolean añadirAlbum(Album album) {
-        Iterator<Album> it = bbdd_Albumes.iterator();
-        while (it.hasNext()) {
+        Iterator<Album> itAlbumes = bbdd_Albumes.iterator();
+        while (itAlbumes.hasNext()) {
             try {
-                if (it.next().getId() == album.getId()) {
+                if (itAlbumes.next().getId() == album.getId()) {
                     return false;
                 }
             } catch (NullPointerException e) {
@@ -43,9 +47,9 @@ public class GestorAlbumes_Admin {
      * @return
      */
     public boolean eliminarAlbum(int idAlbum) {
-        Iterator<Album> it = bbdd_Albumes.iterator();
-        while (it.hasNext()) {
-            Album albumAuxiliar = it.next();
+        Iterator<Album> itAlbumes = bbdd_Albumes.iterator();
+        while (itAlbumes.hasNext()) {
+            Album albumAuxiliar = itAlbumes.next();
             if (albumAuxiliar.getId() == idAlbum) {
                 bbdd_Albumes.remove(albumAuxiliar);
                 return true;

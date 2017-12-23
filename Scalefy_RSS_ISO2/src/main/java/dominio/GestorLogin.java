@@ -13,45 +13,47 @@ public class GestorLogin {
 
     /**
      * Constructor.
-     * @param bbdd_Usuarios 
+     *
+     * @param bbddUsuarios
      */
-    public GestorLogin(LinkedList<Usuario> bbdd_Usuarios) {
-        this.bbdd_Usuarios = bbdd_Usuarios;
+    public GestorLogin(LinkedList<Usuario> bbddUsuarios) {
+        this.bbdd_Usuarios = bbddUsuarios;
     }
-    
+
     /**
-     * 
+     *
      * @param usuario
      * @param contraseña
-     * @return 
+     * @return
      */
     public boolean autenticar(String usuario, char[] contraseña) {
-       
-        Iterator<Usuario> it = bbdd_Usuarios.iterator();
-        while(it.hasNext()){
-            Usuario u = it.next();
-            if(u.getNombreUsuario().equals(usuario)){
-                if(compararContraseña(u.getContraseña().toCharArray(), contraseña)){
-                    System.out.println("Autenticación correcta.");                    
+
+        Iterator<Usuario> itUsuario = bbdd_Usuarios.iterator();
+        while (itUsuario.hasNext()) {
+            Usuario auxUsuario = itUsuario.next();
+            if (auxUsuario.getNombreUsuario().equals(usuario)) {
+                if (compararContraseña(auxUsuario.getContraseña().toCharArray(),
+                         contraseña)) {
+                    System.out.println("Autenticación correcta.");
                     return true;
                 }
                 System.out.println("Contraseña incorrecta.");
                 return false;
             }
-        }   
+        }
         System.out.println("Autenticación fallida.");
-        return false;        
+        return false;
     }
 
     /**
-     * 
-     * @param a
-     * @param b
-     * @return 
+     *
+     * @param password1
+     * @param password2
+     * @return
      */
-    private boolean compararContraseña(char[] a, char[] b) {
-        for(int i = 0; i < a.length; i++){
-            if(a[i] != b[i]){
+    private boolean compararContraseña(char[] password1, char[] password2) {
+        for (int i = 0; i < password1.length; i++) {
+            if (password1[i] != password2[i]) {
                 return false;
             }
         }

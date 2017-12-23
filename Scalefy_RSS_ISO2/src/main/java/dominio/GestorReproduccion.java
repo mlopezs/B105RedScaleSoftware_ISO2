@@ -13,33 +13,36 @@ public class GestorReproduccion {
 
     private final LinkedList<Cancion> bbdd_Canciones;
     private final LinkedList<Album> bbdd_Albumes;
-    private final LinkedList<ListaReproduccion> bbdd_ListasReproduccion;
+    private final LinkedList<ListaReproduccion> bbdd_ListasReprod;
 
     /**
      * Constructor.
-     * @param bbdd_Canciones
-     * @param bbdd_Albumes
-     * @param bbdd_ListasReproduccion 
+     *
+     * @param bbddCanciones
+     * @param bbddAlbumes
+     * @param bbddListasReprod
      */
-    public GestorReproduccion(LinkedList<Cancion> bbdd_Canciones, LinkedList<Album> bbdd_Albumes, 
-            LinkedList<ListaReproduccion> bbdd_ListasReproduccion) {
-        this.bbdd_Canciones = bbdd_Canciones;
-        this.bbdd_Albumes = bbdd_Albumes;
-        this.bbdd_ListasReproduccion = bbdd_ListasReproduccion;
-    }    
-    
+    public GestorReproduccion(LinkedList<Cancion> bbddCanciones,
+            LinkedList<Album> bbddAlbumes,
+            LinkedList<ListaReproduccion> bbddListasReprod) {
+        this.bbdd_Canciones = bbddCanciones;
+        this.bbdd_Albumes = bbddAlbumes;
+        this.bbdd_ListasReprod = bbddListasReprod;
+    }
+
     /**
-     * 
+     *
      * @param idCancion
-     * @return 
+     * @return
      */
     public boolean reproducirCancion(int idCancion) {
-        Iterator<Cancion> it = bbdd_Canciones.iterator();
-        while (it.hasNext()) {
-            Cancion c = it.next();
-            if (c.getId() == idCancion) {
-                System.out.println("Reproduciendo canción \"" + c.getNombre()
-                        + "\" de \"" + c.getArtista() + "\".");
+        Iterator<Cancion> itCanciones = bbdd_Canciones.iterator();
+        while (itCanciones.hasNext()) {
+            Cancion auxCancion = itCanciones.next();
+            if (auxCancion.getId() == idCancion) {
+                System.out.println("Reproduciendo canción \""
+                        + auxCancion.getNombre() + "\" de \""
+                        + auxCancion.getArtista() + "\".");
                 return true;
             }
         }
@@ -48,16 +51,17 @@ public class GestorReproduccion {
     }
 
     /**
-     * 
+     *
      * @param idAlbum
-     * @return 
+     * @return
      */
     public boolean reproducirAlbum(int idAlbum) {
-        Iterator<Album> it = bbdd_Albumes.iterator();
-        while (it.hasNext()) {
-            Album a = it.next();
-            if (a.getId() == idAlbum) {
-                System.out.println("Reproduciendo álbum \"" + a.getNombre() + "\".");
+        Iterator<Album> itAlbumes = bbdd_Albumes.iterator();
+        while (itAlbumes.hasNext()) {
+            Album auxAlbum = itAlbumes.next();
+            if (auxAlbum.getId() == idAlbum) {
+                System.out.println("Reproduciendo álbum \""
+                        + auxAlbum.getNombre() + "\".");
                 return true;
             }
         }
@@ -66,17 +70,18 @@ public class GestorReproduccion {
     }
 
     /**
-     * 
-     * @param idListaReproduccion
-     * @return 
+     *
+     * @param idListaReprod
+     * @return
      */
-    public boolean reproducirListaReproduccion(int idListaReproduccion) {
-        Iterator<ListaReproduccion> it = bbdd_ListasReproduccion.iterator();
-        while (it.hasNext()) {
-            ListaReproduccion lr = it.next();
-            if (lr.getId() == idListaReproduccion) {
-                System.out.println("Reproduciendo lista de reproducción \"" + 
-                        lr.getNombre() + "\".");
+    public boolean reproducirListaReproduccion(int idListaReprod) {
+        Iterator<ListaReproduccion> itListaReprod;
+        itListaReprod = bbdd_ListasReprod.iterator();
+        while (itListaReprod.hasNext()) {
+            ListaReproduccion auxListaReprod = itListaReprod.next();
+            if (auxListaReprod.getId() == idListaReprod) {
+                System.out.println("Reproduciendo lista de reproducción \""
+                        + auxListaReprod.getNombre() + "\".");
                 return true;
             }
         }

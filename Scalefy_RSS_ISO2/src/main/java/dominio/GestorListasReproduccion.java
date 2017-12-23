@@ -12,21 +12,24 @@ import persistencia.Usuario;
 public class GestorListasReproduccion {
 
     // Simulacion BBDD
-    private final LinkedList<ListaReproduccion> bbdd_ListasReproduccion;
+    private final LinkedList<ListaReproduccion> bbdd_ListasReprod;
     private final LinkedList<Usuario> bbdd_Usuarios;
     private final LinkedList<Cancion> bbdd_Canciones;
 
     /**
      * Constructor.
      *
-     * @param bbdd_ListasReproduccion
-     * @param bbdd_Usuarios
-     * @param bbdd_Canciones
+     * @param bbddListasReprod
+     * @param bbddUsuarios
+     * @param bbddCanciones
      */
-    public GestorListasReproduccion(LinkedList<ListaReproduccion> bbdd_ListasReproduccion, LinkedList<Usuario> bbdd_Usuarios, LinkedList<Cancion> bbdd_Canciones) {
-        this.bbdd_ListasReproduccion = bbdd_ListasReproduccion;
-        this.bbdd_Usuarios = bbdd_Usuarios;
-        this.bbdd_Canciones = bbdd_Canciones;
+    public GestorListasReproduccion(
+            LinkedList<ListaReproduccion> bbddListasReprod,
+            LinkedList<Usuario> bbddUsuarios,
+            LinkedList<Cancion> bbddCanciones) {
+        this.bbdd_ListasReprod = bbddListasReprod;
+        this.bbdd_Usuarios = bbddUsuarios;
+        this.bbdd_Canciones = bbddCanciones;
     }
 
     /**
@@ -37,19 +40,20 @@ public class GestorListasReproduccion {
      * @param canciones
      * @return
      */
-    public boolean crearLR(int idLista, int idUsuario, String nombreLista, int[] canciones) {
-       if(idUsuario < 0){
-           System.out.println("El id del usuario no es válido.");
-           return false;
-       }
+    public boolean crearLR(int idLista, int idUsuario,
+            String nombreLista, int[] canciones) {
+        if (idUsuario < 0) {
+            System.out.println("El id del usuario no es válido.");
+            return false;
+        }
         if (idLista < 0 || nombreLista == null || nombreLista.equals("")) {
             System.out.println("El id o nombre de la lista no son correctos");
             return false;
         }
-        Iterator<Usuario> itu = bbdd_Usuarios.iterator();
+        Iterator<Usuario> itUsuarios = bbdd_Usuarios.iterator();
         boolean flag = false;
-        while (itu.hasNext()) {
-            if (idUsuario == itu.next().getIdUsuario()) {
+        while (itUsuarios.hasNext()) {
+            if (idUsuario == itUsuarios.next().getIdUsuario()) {
                 flag = true;
                 break;
             }
@@ -58,34 +62,37 @@ public class GestorListasReproduccion {
             System.out.println("Usuario no encontrado");
             return false;
         }
-        for (int a : canciones) {
-            if (a < 0) {
+        for (int auxIdCancion : canciones) {
+            if (auxIdCancion < 0) {
                 System.out.println("La cancion no es válida.");
                 return false;
             }
         }
-        ListaReproduccion lr = new ListaReproduccion(idLista, nombreLista, idUsuario, canciones);
-        bbdd_ListasReproduccion.add(lr);
+        ListaReproduccion listaReprNueva = new ListaReproduccion(idLista,
+                nombreLista, idUsuario, canciones);
+        bbdd_ListasReprod.add(listaReprNueva);
         System.out.println("Lista \"" + nombreLista + "\" añadida con éxito.");
         return true;
     }
 
     /**
      *
-     * @param idListaReproduccion
+     * @param idListaReprod
      * @return
      */
-    public boolean borrarLR(int idListaReproduccion) {
-        if(idListaReproduccion < 0){
+    public boolean borrarLR(int idListaReprod) {
+        if (idListaReprod < 0) {
             System.out.println("El id de la lista no es válido.");
             return false;
         }
-        Iterator<ListaReproduccion> it = bbdd_ListasReproduccion.iterator();
-        while (it.hasNext()) {
-            ListaReproduccion l = it.next();
-            if (idListaReproduccion == l.getId()) {
-                bbdd_ListasReproduccion.remove(l);
-                System.out.println("Lista \"" + l.getNombre() + "\" eliminada con éxito.");
+        Iterator<ListaReproduccion> itListasReprod;
+        itListasReprod = bbdd_ListasReprod.iterator();
+        while (itListasReprod.hasNext()) {
+            ListaReproduccion auxListaReprod = itListasReprod.next();
+            if (idListaReprod == auxListaReprod.getId()) {
+                bbdd_ListasReprod.remove(auxListaReprod);
+                System.out.println("Lista \"" + auxListaReprod.getNombre()
+                        + "\" eliminada con éxito.");
                 return true;
             }
         }
@@ -94,28 +101,30 @@ public class GestorListasReproduccion {
     }
 
     /**
-     * 
-     * @param idListaReproduccion
+     *
+     * @param idListaReprod
      * @param lecturaTeclado
-     * @return 
+     * @return
      */
-    public boolean modificarLR(int idListaReproduccion, String lecturaTeclado) {
-        
-        if (lecturaTeclado == null || lecturaTeclado.equals("") || idListaReproduccion < 0) {
+    public boolean modificarLR(int idListaReprod, String lecturaTeclado) {
+
+        if (lecturaTeclado == null || lecturaTeclado.equals("")
+                || idListaReprod < 0) {
             System.out.println("El id o nombre de la lista no son correctos");
             return false;
         }
-        
-        Iterator<ListaReproduccion> it = bbdd_ListasReproduccion.iterator();
-        while (it.hasNext()) {
-            ListaReproduccion l = it.next();
-            if (idListaReproduccion == l.getId()) {
-                String old = l.getNombre();
+
+        Iterator<ListaReproduccion> itListasReprod;
+        itListasReprod = bbdd_ListasReprod.iterator();
+        while (itListasReprod.hasNext()) {
+            ListaReproduccion auxListaReprod = itListasReprod.next();
+            if (idListaReprod == auxListaReprod.getId()) {
+                String old = auxListaReprod.getNombre();
                 System.out.println("Cambiar \"" + old + "\" a:");
                 //Scanner sc = new Scanner(System.in);
                 //String nuevo = sc.next();
                 String nuevo = lecturaTeclado;
-                l.setNombre(nuevo);
+                auxListaReprod.setNombre(nuevo);
                 System.out.println("El nombre de la lista \"" + old + "\" "
                         + "se ha cambiado a \"" + nuevo + "\".");
                 return true;
@@ -132,28 +141,9 @@ public class GestorListasReproduccion {
      * @return
      */
     public boolean añadirCancion(int idCancion, int idLR) {
-        boolean flag = false;
-        Iterator<Cancion> it = bbdd_Canciones.iterator();
-        while (it.hasNext()) {
-            if (it.next().getId() == idCancion) {
-                flag = true;
-            }
-        }
-        if (!flag) {
-            System.out.println("La cancion no existe.");
-            return false;
-        }
-        Iterator<ListaReproduccion> it2 = bbdd_ListasReproduccion.iterator();
-        while (it2.hasNext()) {
-            ListaReproduccion l = it2.next();
-            if (idLR == l.getId()) {
-                l.setCanciones(juntar(l.getCanciones(), idCancion));
-                System.out.println("La cancion se ha añadido con éxito a la lista de reproducción.");
-                return true;
-            }
-        }
-        System.out.println("La canción no pudo ser añadida a la lista de reproducción.");
-        return false;
+        boolean adicion = false;
+        adicion = gestionarCancion(idCancion, idLR, 0);
+        return adicion;
     }
 
     /**
@@ -163,10 +153,17 @@ public class GestorListasReproduccion {
      * @return
      */
     public boolean eliminarCancion(int idCancion, int idLR) {
+        boolean eliminacion = false;
+        eliminacion = gestionarCancion(idCancion, idLR, 1);
+        return eliminacion;
+    }
+
+    public boolean gestionarCancion(int idCancion, int idLR, int accion) {
         boolean flag = false;
-        Iterator<Cancion> it = bbdd_Canciones.iterator();
-        while (it.hasNext()) {
-            if (it.next().getId() == idCancion) {
+        Iterator<ListaReproduccion> itListasReprod;
+        itListasReprod = bbdd_ListasReprod.iterator();
+        while (itListasReprod.hasNext()) {
+            if (itListasReprod.next().getId() == idCancion) {
                 flag = true;
             }
         }
@@ -174,16 +171,32 @@ public class GestorListasReproduccion {
             System.out.println("La cancion no existe.");
             return false;
         }
-        Iterator<ListaReproduccion> it2 = bbdd_ListasReproduccion.iterator();
-        while (it2.hasNext()) {
-            ListaReproduccion l = it2.next();
-            if (idLR == l.getId()) {
-                l.setCanciones(separar(l.getCanciones(), idCancion));
-                System.out.println("La canción ha sido retirada de la lista.");
-                return true;
+        Iterator<ListaReproduccion> itListasReprod2;
+        itListasReprod2 = bbdd_ListasReprod.iterator();
+        while (itListasReprod2.hasNext()) {
+            ListaReproduccion auxListaReprod = itListasReprod2.next();
+            if (idLR == auxListaReprod.getId()) {
+
+                switch (accion) {
+                    default:
+                        System.out.println("ERROR, accion desconocida");
+                        return false;
+                    case 0: // Caso de añadir canción
+                        auxListaReprod.setCanciones(juntar(
+                                auxListaReprod.getCanciones(), idCancion));
+                        System.out.println("La cancion se ha añadido "
+                                + "con éxito a la lista de reproducción.");
+                        return true;
+                    case 1: // Caso de eliminar canción
+                        auxListaReprod.setCanciones(separar(
+                                auxListaReprod.getCanciones(), idCancion));
+                        System.out.println("La canción ha sido "
+                                + "retirada de la lista.");
+                        return true;
+                }
             }
         }
-        System.out.println("La canción no pudo retirarse de la lista de reproducción");
+        System.out.println("La canción no pudo gestionarse");
         return false;
     }
 
@@ -210,10 +223,10 @@ public class GestorListasReproduccion {
      */
     private int[] separar(int[] canciones, int idCancion) {
         int[] nuevo = new int[canciones.length - 1];
-        int n = 0;
+        int nuevoLugar = 0;
         for (int i = 0; i < canciones.length; i++) {
             if (canciones[i] != idCancion) {
-                nuevo[n] = canciones[i];
+                nuevo[nuevoLugar] = canciones[i];
             }
         }
         return nuevo;
